@@ -17,6 +17,9 @@ class Scraper:
     def bypass_cookies(self):
         pass
 
+    def scroll_page(self):
+        pass
+
     def download_files(self):
         pass
 
