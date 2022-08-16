@@ -12,6 +12,7 @@ class Scraper:
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
         self.driver.get(url)
         self.button_id = str
+        self.href = str
 
     def click_button(self):
         click_button = self.driver.find_element(By.XPATH, self.button_id)
@@ -20,8 +21,13 @@ class Scraper:
     def bypass_cookies(self):
         bypass_cookies = self.click_button(button_id= '//button[@id="tarteaucitronManager"]')
 
+    def click_link(self)
+        click_link = self.driver.find_element(By.XPATH, self.href)
+        click_link = self.click()
+
     def download_files(self):
         pass
+        download_button = self.click_button(button_id= '//button[@id="tarteaucitronManager"]')
 
     def move_to_following_page(self):
         pass
