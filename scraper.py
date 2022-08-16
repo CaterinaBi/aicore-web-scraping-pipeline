@@ -12,10 +12,14 @@ class Scraper:
         self.driver.get(url)
 
     def click_buttons(self):
+        click_buttons = self.driver.find_element(By.XPATH, '//button[@id=""]')
+        click_buttons = self.click()
         pass
 
-    def bypass_cookies(self):
-        pass
+    # def bypass_cookies(self):
+    #    bypass_cookies = self.driver.find_element(By.XPATH, '//button[@id=""]')
+    #    bypass_cookies = self.click()
+    #    pass
 
     def scroll_page(self):
         pass
