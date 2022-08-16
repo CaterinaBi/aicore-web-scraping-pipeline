@@ -20,9 +20,6 @@ class Scraper:
     def bypass_cookies(self):
         bypass_cookies = self.click_button(button_id= '//button[@id="tarteaucitronManager"]')
 
-    def scroll_page(self):
-        pass
-
     def download_files(self):
         pass
 
