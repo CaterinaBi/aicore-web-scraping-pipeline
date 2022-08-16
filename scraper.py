@@ -21,7 +21,7 @@ class Scraper:
     def bypass_cookies(self):
         bypass_cookies = self.click_button(button_id= '//button[@id="tarteaucitronManager"]')
 
-    def click_link(self)
+    def click_link(self):
         click_link = self.driver.find_element(By.XPATH, self.href)
         click_link = self.click()
 
