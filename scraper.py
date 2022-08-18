@@ -27,7 +27,10 @@ class Scraper:
 
     def download_files(self):
         pass
-        download_button = self.click_button(button_id= '//button[@id="tarteaucitronManager"]')
+        download_button = self.click_button(href= '//href[@id="_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_details_208553"]/div/div[1]/div[1]/article/div[2]/div/div[2]/div[2]/a"]')
 
     def move_to_following_page(self):
+        pass
+
+    def scroll_page(self):
         pass
