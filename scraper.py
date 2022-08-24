@@ -18,7 +18,7 @@ class Scraper:
         click_button = self.driver.find_element(By.XPATH, self.button_id)
         click_button = self.click()
 
-    def bypass_cookies(self):
+    def bypass_cookies(self): # remember to implement a way to avoid errors if there is no cookie manager
         bypass_cookies = self.click_button(button_id= '//button[@id="tarteaucitronManager"]')
 
     def click_link(self):
@@ -33,4 +33,4 @@ class Scraper:
         pass
 
     def scroll_page(self):
-        pass
+        self.driver.execute_script("window.scrollTo(0, window.scrollY + 200)")
