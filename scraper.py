@@ -11,8 +11,6 @@ class Scraper:
     def __init__(self, url: str = 'https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E274&insId=1&radius=10.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false'):
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
         self.driver.get(url)
-        self.button_id = str
-        self.href = str
 
     def click_button(self):
         pass
