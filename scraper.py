@@ -17,7 +17,10 @@ class Scraper:
     # bypasses cookies
     def bypass_cookies(self):
         try:
-            self.accept_cookies_button = self.driver.find_element(By.XPATH, value='//*[@class"optanon-allow-all accept-cookies-button"]')
+            # moves the driver into the frame
+            # self.driver.switch_to.frame('optanon-alert-box-bg')
+            # gets the accept all cookies button and clicks it
+            self.accept_cookies_button = self.driver.find_element(By.XPATH, value='//button[@class="optanon-allow-all accept-cookies-button"]')
             self.accept_cookies_button.click()
         except:
             pass # passes if there is no cookies button
