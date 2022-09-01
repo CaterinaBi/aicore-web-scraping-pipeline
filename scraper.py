@@ -12,10 +12,10 @@ class Scraper:
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
         self.driver.get(url)
 
-    def click_button(self):
-        pass
-
     def bypass_cookies(self): # remember to implement a way to avoid errors if there is no cookie manager
+        pass
+    
+    def click_button(self):
         pass
 
     def click_link(self):
