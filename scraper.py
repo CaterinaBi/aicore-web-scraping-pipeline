@@ -13,23 +13,13 @@ class Scraper:
         self.driver.get(url)
         self.time.sleep(2)
 
-    #def bypass_cookies(self): # remember to implement a way to avoid errors if there is no cookie manager
-        #try:
-            #accept_cookies_button = self.driver.find_element(By.XPATH, value='//*[id='']')
-        #except:
-            #pass # passes if there is no cookie button
+    # no need to bypass cookies in this website
 
-    def click_button(self):
+    def get_all_properties_in_the_page(self):
+        pass 
+
+    def extract_the_data_into_a_dictionary(self):
         pass
 
-    def click_link(self):
-        pass
-
-    def download_files(self):
-        pass
-
-    def move_to_following_page(self):
-        pass
-
-    def scroll_page(self):
+    def move_to_the_next_page(self):
         pass
