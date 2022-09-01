@@ -11,10 +11,14 @@ class Scraper:
     def __init__(self, url: str = 'https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E274&insId=1&radius=10.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false'):
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
         self.driver.get(url)
+        self.time.sleep(2)
 
-    def bypass_cookies(self): # remember to implement a way to avoid errors if there is no cookie manager
-        pass
-    
+    #def bypass_cookies(self): # remember to implement a way to avoid errors if there is no cookie manager
+        #try:
+            #accept_cookies_button = self.driver.find_element(By.XPATH, value='//*[id='']')
+        #except:
+            #pass # passes if there is no cookie button
+
     def click_button(self):
         pass
 
