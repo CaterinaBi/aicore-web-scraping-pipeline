@@ -26,7 +26,7 @@ class Scraper:
     # creates a crawler
     def get_all_properties_in_the_page(self):
         # gets the container where all properties are stored
-        self.property_container = self.driver.find_element(By.XPATH, value='//div[@id="l-searchResults"]')
+        self.property_container = self.driver.find_element(By.XPATH, value='//*div[@id="l-searchResults"]')
         # gets list of all properties inside the container using <div> tags that are its direct children
         self.property_list = self.property_container.find_elements(By.XPATH, value='./div')
         # creates empty list of links to all properties
@@ -34,8 +34,8 @@ class Scraper:
 
         # populates list
         for property in self.property_list:
-            self.image_tag = property.find_element(By.TAG_NAME, value='img')
-            self.link = self.image_tag.get_attribute('src')
+            self.a_tag = property.find_element(By.TAG_NAME, value='a')
+            self.link = self.a_tag.get_attribute('id')
             self.all_properties_links_list.append(self.link)
             time.sleep(2)
 
