@@ -29,6 +29,7 @@ class Scraper:
         self.property_container = self.driver.find_element(By.XPATH, value='//*[@id="propertySearch-results-container"]')
         # gets list of all properties inside the container using <div> tags that are its direct children
         self.property_list = self.property_container.find_elements(By.XPATH, value='./div')
+        print(f'The property list on this page is as follows: {self.property_list}')
         # creates empty list of links to all properties
         self.all_properties_links_list = []
 
