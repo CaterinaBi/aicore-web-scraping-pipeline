@@ -35,7 +35,7 @@ class Scraper:
         # populates list
         for property in self.property_list:
             self.a_tag = property.find_element(By.TAG_NAME, value='a')
-            self.link = self.a_tag.get_attribute('id')
+            self.link = self.a_tag.get_attribute('href')
             self.all_properties_links_list.append(self.link)
             time.sleep(2)
 
