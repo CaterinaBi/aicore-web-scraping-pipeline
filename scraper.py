@@ -29,7 +29,9 @@ class Scraper:
         self.property_container = self.driver.find_element(By.XPATH, value='//*[@id="l-searchResults"]/div')
         # gets list of all properties inside the container using <div> tags that are its direct children
         self.property_list = self.property_container.find_elements(By.XPATH, value='//*[@class=l-searchResult is-list]')
+        # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
         self.property_list = self.property_list[1:]
+        # excludes ads from the list
         
         print(f'\nThe property list on this page is as follows: {self.property_list}\n')
         print(len(self.property_list))
