@@ -37,15 +37,11 @@ class Scraper:
         print(f'\nThe property list on this page is as follows: {self.property_list}\n')
         print(f'Number of properties on this page: {len(self.property_list)}')
         
-        # creates empty list of links to all properties
-        self.all_properties_links_list = []
-
-        # populates list
-        for property in self.property_list:
-            self.a_tag = property.find_element(By.TAG_NAME, 'a')
-            self.link = self.a_tag.get_attribute('href')
-            self.all_properties_links_list.append(self.link)
-            time.sleep(2)
+        # creates list of links to all properties
+        self.elems = self.driver.find_elements(By.CSS_SELECTOR, ".propertyCard-moreInfoItem [href]")
+        self.all_properties_links_list = [elem.get_attribute('href') for elem in self.elems]
+        print(self.all_properties_links_list)
+        time.sleep(2)
 
         # prints list of links
         print(f'We found {len(self.all_properties_links_list)} links to properties in this page:')
