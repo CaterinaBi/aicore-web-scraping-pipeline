@@ -28,14 +28,14 @@ class Scraper:
         # gets the container where all properties are stored
         self.property_container = self.driver.find_element(By.XPATH, value='//*[@id="l-searchResults"]/div')
         # gets list of all properties inside the container using <div> tags that are its direct children
-        # excludes list items that are ads by using @class=l-searchResult is-list, which is exclusive to properties
+        # excludes list items that are ads and by using @class=l-searchResult is-list, which is exclusive to properties
         self.property_list = self.property_container.find_elements(By.XPATH, value='./div[contains(@class,"l-searchResult is-list")]')
         
         # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
         self.property_list = self.property_list[1:]
         
         print(f'\nThe property list on this page is as follows: {self.property_list}\n')
-        print(len(self.property_list))
+        print(f'Number of properties on this page: {len(self.property_list)}')
         
         # creates empty list of links to all properties
         self.all_properties_links_list = []
@@ -48,7 +48,7 @@ class Scraper:
             time.sleep(2)
 
         # prints list of links
-        print(f'There are {len(self.all_properties_links_list)} properties in this page.')
+        print(f'We found {len(self.all_properties_links_list)} links to properties in this page:')
         print(self.all_properties_links_list)
 
     def extract_the_data_into_a_dictionary(self):
