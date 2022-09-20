@@ -5,6 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
+import requests
 import time
 from time import sleep
 
@@ -35,12 +37,15 @@ class Scraper:
         self.property_list = self.property_list[1:]
         
         print(f'\nThe property list on this page is as follows: {self.property_list}\n')
-        print(f'Number of properties on this page: {len(self.property_list)}')
+        print(f'Number of properties on this page: {len(self.property_list)}\n')
         
+         # creates empty list of links to all properties
+        self.all_properties_links_list = []
+
         # creates list of links to all properties
-        self.elems = self.driver.find_elements(By.CSS_SELECTOR, ".propertyCard-moreInfoItem [href]")
+        self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-moreInfoItem")
         self.all_properties_links_list = [elem.get_attribute('href') for elem in self.elems]
-        print(self.all_properties_links_list)
+        # print(self.all_properties_links_list)
         time.sleep(2)
 
         # prints list of links
