@@ -63,7 +63,7 @@ class Scraper:
         print(self.all_properties_links_list)
 
     def scroll_to_bottom(self):
-        pass
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     def move_to_the_next_page(self):
         pass
