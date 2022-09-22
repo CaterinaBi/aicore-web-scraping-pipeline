@@ -47,12 +47,19 @@ class Scraper:
         self.all_properties_links_list = []
 
         # creates list of links to all properties
-        self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-headerLink")
+        self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-priceLink")
         self.all_properties_links_list = [elem.get_attribute('href') for elem in self.elems]
         time.sleep(2)
 
+        #if code works properly, should print '25'
+        print(f'\nWe found {len(self.all_properties_links_list)} links to properties in this page before slicing.\n')
+
+        # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
+        # if code works properly, should print '24'
+        self.all_properties_links_list = self.all_properties_links_list[1:]
+
         # prints list of links
-        print(f'We found {len(self.all_properties_links_list)} links to properties in this page:')
+        print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
         print(self.all_properties_links_list)
 
     def extract_the_data_into_a_dictionary(self):
