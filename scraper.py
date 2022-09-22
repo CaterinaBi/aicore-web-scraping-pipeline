@@ -30,7 +30,7 @@ class Scraper:
         # gets the container where all properties are stored
         self.property_container = self.driver.find_element(By.XPATH, value='//*[@id="l-searchResults"]/div')
         # gets list of all properties inside the container using <div> tags that are its direct children
-        # excludes list items that are ads and by using @class=l-searchResult is-list, which is exclusive to properties
+        # excludes list items that are ads by using @class=l-searchResult is-list, which is exclusive to properties
         self.property_list = self.property_container.find_elements(By.XPATH, value='./div[contains(@class,"l-searchResult is-list")]')
         
         # if code works properly, should print '25'
