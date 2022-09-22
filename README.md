@@ -6,13 +6,19 @@ Web scraping pipeline I'm working on as part of my 'AI and data engineering' tra
 
 ## Goals 🏅
 
-Data Collection Pipeline
-Developed a module that scraped data from various sources using Selenium (and maybe Requests) 
-Curated a database with information about the website and stored it on an AWS RDS database using SQLAlchemy and PostgreSQL
-Performed unit testing and integration testing on the application to ensure that the package published to Pypi is working as expected
-Used Docker to containerise the application and deployed it to an EC2 instance
-Set up a CI/CD pipeline using GitHub Actions to push a new Docker image
-Monitored the container using Prometheus and created dashboards to visualise those metrics using Grafana
+The aims of this data collection pipeline are to:
+
+- develop a module that scrapes data from various sources using Selenium and Requests;
+
+- curate a database with information about the chosen website and store it on an AWS RDS database using SQLAlchemy and PostgreSQL;
+
+- perform unit testing and integration testing on the application to ensure that the package published to Pypi works as expected;
+
+- use Docker to containerise the application and deploy it to an EC2 instance;
+
+- set up a CI/CD pipeline using GitHub Actions to push a new Docker image;
+
+- monitor the container using Prometheus and create dashboards to visualise those metrics using Grafana.
 
 ## Language and tools
 
