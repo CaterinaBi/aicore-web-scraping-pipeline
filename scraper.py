@@ -62,8 +62,11 @@ class Scraper:
         print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
         print(self.all_properties_links_list)
 
-    def extract_the_data_into_a_dictionary(self):
+    def scroll_to_bottom(self):
         pass
 
     def move_to_the_next_page(self):
+        pass
+
+    def extract_the_data_into_a_dictionary(self):
         pass
