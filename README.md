@@ -35,3 +35,5 @@ Given that the website includes thousands of properties for sale and rent locate
 ![Image from the RightMove website](images/website.png)
 
 ## Milestone 3: Find links to the pages from which we wish to scrape data
+
+The project is written in Python and utilises OOP concepts throughout. In this milestone, I created a `Scraper()` class and started to populate it with methods intended to create a list of the properties featured on the first page of my research, and then extract the links of each one of these and store them in another dedicated list.
