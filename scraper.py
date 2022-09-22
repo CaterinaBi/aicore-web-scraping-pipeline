@@ -33,9 +33,11 @@ class Scraper:
         # excludes list items that are ads and by using @class=l-searchResult is-list, which is exclusive to properties
         self.property_list = self.property_container.find_elements(By.XPATH, value='./div[contains(@class,"l-searchResult is-list")]')
         
+        # if code works properly, should print '25'
         print(f'\nNumber of properties on this page before slicing: {len(self.property_list)}\n')
 
         # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
+        # if code works properly, should print '24'
         self.property_list = self.property_list[1:]
         
         print(f'\nThe property list on this page is as follows: {self.property_list}\n')
