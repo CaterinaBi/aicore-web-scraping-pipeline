@@ -33,6 +33,8 @@ class Scraper:
         # excludes list items that are ads and by using @class=l-searchResult is-list, which is exclusive to properties
         self.property_list = self.property_container.find_elements(By.XPATH, value='./div[contains(@class,"l-searchResult is-list")]')
         
+        print(f'\nNumber of properties on this page before slicing: {len(self.property_list)}\n')
+
         # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
         self.property_list = self.property_list[1:]
         
@@ -43,9 +45,8 @@ class Scraper:
         self.all_properties_links_list = []
 
         # creates list of links to all properties
-        self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-moreInfoItem")
+        self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-headerLink")
         self.all_properties_links_list = [elem.get_attribute('href') for elem in self.elems]
-        # print(self.all_properties_links_list)
         time.sleep(2)
 
         # prints list of links
