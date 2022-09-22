@@ -1,6 +1,6 @@
 # Web scraping pipeline (AiCore training)
 
-Web scraping pipeline I'm working on as part of my 'AI and data engineering' training at AiCore. This is my first ever webscraping experience, therefore all technologies and tools mentioned throughout are being learned from scratch, one at a time.
+Web scraping pipeline I'm working on as part of my 'AI and data engineering' training at AiCore. Despite me being quite confident coding in Python, this is my first ever webscraping experience, therefore all technologies and tools mentioned throughout are being learned from scratch, one at a time 🤯
 
 ![Image from the AiCore portal](images/portal.png)
 
