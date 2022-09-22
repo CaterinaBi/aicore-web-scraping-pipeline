@@ -26,7 +26,9 @@ The requirements for this data collection pipeline are to:
 
 ## Milestones 1-2: Environment setup and choice of website to scrape
 
-The project is done using [VS Code](https://code.visualstudio.com/) as a code editor, plus Git and GitHub for version control. The environment setup was done by creating a new environment, `web-scraping`, using conda. Once every required package had been installed, a `requirements.txt` file was generated.
+The project is being completed using [VS Code](https://code.visualstudio.com/) as a code editor, plus Git and GitHub for version control. The environment setup was done by creating a new environment, `web-scraping`, in conda. Once every required package had been installed, a `requirements.txt` file was generated.
+
+The choice of website to scrape was based on two 
 
 ![Image from the RightMove website](images/website.png)
 
