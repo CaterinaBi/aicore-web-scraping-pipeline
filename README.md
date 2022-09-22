@@ -26,4 +26,6 @@ The requirements for this data collection pipeline are to:
 
 ## Milestones 1-2: Environment setup and choice of website to scrape
 
+![Image from the RightMove website](images/website.png)
+
 ## Milestone 3: Find links to the pages from which we wish to scrape data
