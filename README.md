@@ -1,12 +1,12 @@
 # Web scraping pipeline (AiCore training)
 
-Web scraping pipeline I'm working on as part of my 'AI and data engineering' training at AiCore.
+Web scraping pipeline I'm working on as part of my 'AI and data engineering' training at AiCore. This is my first ever webscraping experience, therefore all technologies and tools mentioned throughout are being learned from scratch, one at a time.
 
 ![Image from the AiCore portal](images/portal.png)
 
-## Goals 🏅
+## Goals of the project 🏅
 
-The aims of this data collection pipeline are to:
+The requirements for this data collection pipeline are to:
 
 - develop a module that scrapes data from various sources using Selenium and Requests;
 
