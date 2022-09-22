@@ -64,6 +64,7 @@ class Scraper:
 
     def scroll_to_bottom(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)
 
     # clicks on the 'next page' button
     def move_to_the_next_page(self):
@@ -71,6 +72,7 @@ class Scraper:
             # gets the next page button and clicks it
             self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value=".pagination-button.pagination-direction.pagination-direction--next")
             self.move_to_next_page.click()
+            time.sleep(2)
         except:
             pass # passes if there is no next page button
 
