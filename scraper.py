@@ -40,7 +40,7 @@ class Scraper:
         print('\nI\'m now going to crate lists of properties and their respective links.\nThe lists will be sliced to exclude the \'featured\' property on each page.')
         time.sleep(2)
 
-    # creates a crawler
+    # creates a crawler # think of a way to get rid of this part of the crawler
     def get_all_properties_in_the_page(self):
         self.page =+ 1
         print(f'\nWe\'re on page {self.page}.')
