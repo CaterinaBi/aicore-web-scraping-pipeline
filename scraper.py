@@ -12,8 +12,9 @@ from time import sleep
 
 class Scraper:
     def __init__(self, url: str = 'https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E274&insId=1&radius=10.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false'):
+        print('\nHi! I\'m Bot. I\'m now going to open the website that you chose.')
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
-        self.driver.get(url) # look for all properties for sale within a 10-mila radius from Cambridge, UK
+        self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
         time.sleep(2)
         
         # creates list of properties from all pages
@@ -21,14 +22,20 @@ class Scraper:
         # creates list of links for all properties from all pages
         self.whole_query_property_links = []
 
+        print('We\'re in! I\'m now going to accept all cookies.')
+        time.sleep(2)
+
     # bypasses cookies
     def bypass_cookies(self):
         try:
             # gets the accept all cookies button and clicks it
             self.accept_cookies_button = self.driver.find_element(By.XPATH, value='//button[@class="optanon-allow-all accept-cookies-button"]')
             self.accept_cookies_button.click()
+            print('\nAll cookies accepted!')
         except:
             pass # passes if there is no cookies button
+            print('\nThere were no cookies to accept.')
+        time.sleep(2)
 
     # creates a crawler
     def get_all_properties_in_the_page(self):
