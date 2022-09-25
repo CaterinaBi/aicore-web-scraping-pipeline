@@ -15,6 +15,11 @@ class Scraper:
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
         self.driver.get(url) # look for all properties for sale within a 10-mila radius from Cambridge, UK
         time.sleep(2)
+        
+        # creates list of properties from all pages
+        self.whole_query_property_list = []
+        # creates list of links for all properties from all pages
+        self.whole_query_property_links = []
 
     # bypasses cookies
     def bypass_cookies(self):
@@ -62,18 +67,13 @@ class Scraper:
         print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
         print(self.all_properties_links_list)
 
-    # def create_global_list(self):
-        # creates list of properties from all pages
-        # self.whole_query_property_list = []
-        # adds properties from current page to the list
-        # self.whole_query_property_list.extend(self.property_list)
-        # print(f'\nThe global list of properties now includes {len(self.whole_query_property_list)} properties.')
-
-        # creates list of links for all properties from all pages
-        # self.whole_query_property_links = []
+    def create_global_list(self):
+        # adds properties from current page to the global list
+        self.whole_query_property_list.extend(self.property_list)
+        print(f'\nThe global list of properties now includes {len(self.whole_query_property_list)} properties.')
         # adds property links from current page to the list
-        # self.whole_query_property_links.extend(self.all_properties_links_list)
-        # print(f'\nThe global list of property links now includes {len(self.whole_query_property_links)} links.')
+        self.whole_query_property_links.extend(self.all_properties_links_list)
+        print(f'\nThe global list of property links now includes {len(self.whole_query_property_links)} links.')
 
     def scroll_to_bottom(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
