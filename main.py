@@ -9,4 +9,3 @@ if __name__ == '__main__':
         bot.create_global_list()
         bot.scroll_to_bottom()
         bot.move_to_the_next_page()
-    # driver.quit()
