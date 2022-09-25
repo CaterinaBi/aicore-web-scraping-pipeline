@@ -82,18 +82,17 @@ class Scraper:
             print(f'{self.whole_query_property_links}\n')
             time.sleep(2)
 
-    # def extract_the_data_into_a_dictionary(self):
-        # print('Hold on, I\'m going to extract all property details now. This might take a while...')
-        # self.data_collection_terminated = bool
-        # self.properties_dictionnary = {'ID': [], 'Image': [], 'Price': [], 'Address': [], 'Bedrooms': [], 'Bathrooms': [], 'Description': []}
-        # Iterate through the list of links, and for each iteration, visit the corresponding URL
-        # Sleep
-        # Extract the information of the property
-        # Visit the next URL
+    def extract_the_data_into_a_dictionary(self):
+        print('Hold on, I\'m going to extract all property details now. This might take a while...')
+        self.data_collection_terminated = bool
+        self.properties_dictionnary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Bedrooms': [], 'Bathrooms': [], 'Description': []}
+        time.sleep(2)
 
-        # for link in self.whole_query_property_links:
+        for link in self.whole_query_property_links:
             # self.property_id = 
-            # self.property_image_link = 
+            # self.property_uuid = 
+            # self.property_image_link = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
+            # self.properties_dictionnary['Image'].append(self.price)
             # self.property_price = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
             # self.properties_dictionnary['Price'].append(self.price)
             # self.property_address = self.driver.find_element(by=By.XPATH, value='//address[@data-testid="address-label"]').text
@@ -106,6 +105,7 @@ class Scraper:
             # self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
             # self.description = self.span_tag.text
             # self.properties_dictionnary['Description'] = self.description
+            time.sleep(2)
 
             # sets the task as completed
             # self.data_collection_terminated = True
