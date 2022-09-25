@@ -48,15 +48,11 @@ class Scraper:
         # gets list of all properties inside the container using <div> tags that are its direct children
         # excludes list items that are ads by using @class=l-searchResult is-list, which is exclusive to properties
         self.property_list = self.property_container.find_elements(By.XPATH, value='./div[contains(@class,"l-searchResult is-list")]')
-        
-        # if code works properly, should print '25'
         print(f'\nNumber of properties on page {self.page} before slicing: {len(self.property_list)}\n')
         print(f'Number of properties on this page: {len(self.property_list)}\n')
 
         # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
-        # if code works properly, should print '24'
         self.property_list = self.property_list[1:]
-        
         print(f'\nThe list of properties on page {self.page} is as follows:\n')
         print(f'{self.property_list}\n')
 
@@ -64,21 +60,15 @@ class Scraper:
     def get_all_property_links(self):
          # creates empty list of links to all properties
         self.all_properties_links_list = []
-
         # creates list of links to all properties
         self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-priceLink")
         self.all_properties_links_list = [elem.get_attribute('href') for elem in self.elems]
         time.sleep(2)
-
-        #if code works properly, should print '25'
         print(f'We found {len(self.all_properties_links_list)} links to properties in page {self.page} before slicing.\n')
         print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
 
         # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
-        # if code works properly, should print '24'
         self.all_properties_links_list = self.all_properties_links_list[1:]
-
-        # prints list of links
         print(f'\nThe list of properties on page {self.page} is as follows:\n')
         print(f'{self.all_properties_links_list}\n')
 
@@ -91,7 +81,7 @@ class Scraper:
         print(f'The global list of property links now includes {len(self.whole_query_property_links)} links.')
 
     def scroll_to_bottom(self):
-        print('\nScrolling to the bottom of the page right now, then clicking on \'next page\'.\n')
+        print('\nScrolling to the bottom of the page right now, then clicking on \'next page\'.')
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(2)
 
@@ -104,7 +94,7 @@ class Scraper:
             time.sleep(2)
         except:
             pass # passes if there is no next page button
-            print(f'There\'s no \'next page\' button, looks like we reached an impasse! I think we\'re done.')
+            print(f'\nThere\'s no \'next page\' button, looks like we reached an impasse! I think we\'re done.')
 
     def extract_the_data_into_a_dictionary(self):
         pass
