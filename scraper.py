@@ -1,3 +1,4 @@
+from pyrsistent import s
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -94,6 +95,7 @@ class Scraper:
             time.sleep(2)
         except:
             pass # passes if there is no next page button
+            self.driver(quit)
             print(f'\nThere\'s no \'next page\' button, looks like we reached an impasse! I think we\'re done.')
 
     def extract_the_data_into_a_dictionary(self):

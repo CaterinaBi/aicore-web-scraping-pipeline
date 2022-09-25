@@ -52,3 +52,8 @@ if __name__ == '__main__':
 
 `if __name__ == '__main__':` assigns the scraper to the `bot` variable. First, the scraper bypasses cookies - `try-except` is used in the `bypass_cookies` to make sure the programme doesn't crash in the absence of cookies to accept. The scraper then performs all actions from the methods in `scraper.py`, until all properties in all web pages into consideration have been found. This is done using a while-loop.
 
+The scraper includes a crawler. The first action performed by the scraper after accepting the cookies is indeed that of finding all properties on the page, and then all the links to said properties. These are stored in dedicated lists, and then added to a `global_list` which is extended little with all extracted elements (properties and their links) from all pages. 
+
+Once a page has been scraped, the scraper moves to the bottom of it and clicks on the 'next page' botton. `try-except` syntax is used to ensure that the programme doesn't crash when there is no more 'next page' button.
+
+Meaningful messages are printed throughout to make the user experience more pleasurable.
