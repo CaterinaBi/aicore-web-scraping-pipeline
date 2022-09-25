@@ -36,5 +36,19 @@ Given that the website includes thousands of properties for sale and rent locate
 
 ## Milestone 3: Find links to the pages from which we wish to scrape data
 
-The project is written in Python and utilises OOP concepts throughout. In this milestone, I created a `Scraper()` class and started to populate it with methods intended to create a list of the properties featured on the first page of my research, and then extract the links of each one of these and store them in a dedicated list.
+The project is written in Python and utilises OOP concepts throughout. In this milestone, I created a `Scraper()` class within a `scraper.py` file and started to populate it with methods intended to create a list of the properties featured on the first page of my research, and then extract the links of each one of these and store them in a dedicated list. The `main.py` file, which runs the code, includes what follows:
+
+```python
+if __name__ == '__main__':
+    bot = Scraper()
+    bot.bypass_cookies()
+    while True:
+        bot.get_all_properties_in_the_page()
+        bot.get_all_property_links()
+        bot.create_global_list()
+        bot.scroll_to_bottom()
+        bot.move_to_the_next_page()
+```
+
+`if __name__ == '__main__':` assigns the scraper to the `bot` variable. First, the scraper bypasses cookies - `try-except` is used in the `bypass_cookies` to make sure the programme doesn't crash in the absence of cookies to accept. The scraper then performs all actions from the methods in `scraper.py`, until all properties in all web pages into consideration have been found. This is done using a while-loop.
 
