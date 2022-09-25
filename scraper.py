@@ -97,12 +97,18 @@ class Scraper:
 
         for link in self.whole_query_property_links:
             self.driver.get(link)
+
+            # generates property IDs and stores them into dictionnary
             self.property_id = 'property_' + str(self.whole_query_property_links.index(link) + 1)
             self.property_number += 1
             print(f'Property id for property number {self.property_number}: {self.property_id}')
             self.properties_dictionnary['ID'].append(self.property_id)
-            print(self.properties_dictionnary)
-            # self.property_uuid = self.properties_dictionnary['UUID'].append(self.uuid4())
+
+            # generates property UUIDs and stores them into dictionnary
+            self.uuid4 = str(uuid.uuid4())
+            self.properties_dictionnary['UUID'].append(self.uuid4)
+            print(f'Property id for property number {self.property_number}: {self.uuid4}')
+
             # self.property_image_link = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
             # self.properties_dictionnary['Image'].append(self.price)
             # self.property_price = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
@@ -117,7 +123,9 @@ class Scraper:
             # self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
             # self.description = self.span_tag.text
             # self.properties_dictionnary['Description'] = self.description
-            time.sleep(1)
+            time.sleep(2)
+
+        print(self.properties_dictionnary)
 
             # sets the task as completed
             # self.data_collection_terminated = True
