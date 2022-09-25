@@ -56,7 +56,7 @@ class Scraper:
         # if code works properly, should print '24'
         self.property_list = self.property_list[1:]
         
-        print(f'\nThe property list on page {self.page} is as follows:\n')
+        print(f'\nThe list of properties on page {self.page} is as follows:\n')
         print(f'{self.property_list}\n')
 
     # continues crawler   
@@ -70,15 +70,16 @@ class Scraper:
         time.sleep(2)
 
         #if code works properly, should print '25'
-        print(f'\nWe found {len(self.all_properties_links_list)} links to properties in this page before slicing.\n')
+        print(f'\nWe found {len(self.all_properties_links_list)} links to properties in page {self.page} before slicing.\n')
+        print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
 
         # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
         # if code works properly, should print '24'
         self.all_properties_links_list = self.all_properties_links_list[1:]
 
         # prints list of links
-        print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
-        print(self.all_properties_links_list)
+        print(f'\nThe list of properties on page {self.page} is as follows:\n')
+        print(f'{self.all_properties_links_list}\n')
 
     def create_global_list(self):
         # adds properties from current page to the global list
