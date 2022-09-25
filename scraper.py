@@ -42,6 +42,7 @@ class Scraper:
     # creates a crawler
     def get_all_properties_in_the_page(self):
         self.page =+ 1
+        print(f'\nWe\'re on page {self.page}.')
         # gets the container where all properties are stored
         self.property_container = self.driver.find_element(By.XPATH, value='//*[@id="l-searchResults"]/div')
         # gets list of all properties inside the container using <div> tags that are its direct children
@@ -70,7 +71,7 @@ class Scraper:
         time.sleep(2)
 
         #if code works properly, should print '25'
-        print(f'\nWe found {len(self.all_properties_links_list)} links to properties in page {self.page} before slicing.\n')
+        print(f'We found {len(self.all_properties_links_list)} links to properties in page {self.page} before slicing.\n')
         print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
 
         # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
@@ -87,9 +88,10 @@ class Scraper:
         print(f'\nThe global list of properties now includes {len(self.whole_query_property_list)} properties.')
         # adds property links from current page to the list
         self.whole_query_property_links.extend(self.all_properties_links_list)
-        print(f'\nThe global list of property links now includes {len(self.whole_query_property_links)} links.')
+        print(f'The global list of property links now includes {len(self.whole_query_property_links)} links.')
 
     def scroll_to_bottom(self):
+        print('\nScrolling to the bottom of the page right now, then clicking on \'next page\'.\n')
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(2)
 
@@ -102,6 +104,7 @@ class Scraper:
             time.sleep(2)
         except:
             pass # passes if there is no next page button
+            print(f'There\'s no \'next page\' button, looks like we reached an impasse! I think we\'re done.')
 
     def extract_the_data_into_a_dictionary(self):
         pass
