@@ -20,6 +20,7 @@ class Scraper:
         time.sleep(2)
         
         self.page = 0
+        self.property_number = 0
         # creates list of properties from all pages
         self.whole_query_property_list = []
         # creates list of links for all properties from all pages
@@ -40,18 +41,22 @@ class Scraper:
 
     # creates crawler   
     def get_all_property_links(self):
-        self.page =+ 1
-        print(f'\nWe\'re on page {self.page} now.')
-        # creates empty list of links to all properties
-        self.all_properties_links_list = []
-        # creates list of links to all properties
-        self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-priceLink")
-        self.all_properties_links_list = [elem.get_attribute('href') for elem in self.elems]
-        time.sleep(2)
-        print(f'We found {len(self.all_properties_links_list)} links to properties in page {self.page} before slicing.\n')
-         # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
-        self.all_properties_links_list = self.all_properties_links_list[1:]
-        print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
+        self.page += 1
+        # delete if-statement to extract from all pages
+        if self.page == 3:
+            self.extract_the_data_into_a_dictionary()
+        else:
+            print(f'\nWe\'re on page {self.page} now.')
+            # creates empty list of links to all properties
+            self.all_properties_links_list = []
+            # creates list of links to all properties
+            self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-priceLink")
+            self.all_properties_links_list = [elem.get_attribute('href') for elem in self.elems]
+            time.sleep(2)
+            print(f'We found {len(self.all_properties_links_list)} links to properties in page {self.page} before slicing.\n')
+            # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
+            self.all_properties_links_list = self.all_properties_links_list[1:]
+            print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
 
     # creates a list of property links from all scraped pages
     def create_global_list(self):
@@ -89,7 +94,10 @@ class Scraper:
         time.sleep(2)
 
         for link in self.whole_query_property_links:
-            # self.property_id = 
+            self.driver.get(link)
+            self.property_id = self.whole_query_property_links.index(link) + 1
+            self.property_number += 1
+            print(f'Property id for property number {self.property_number}: {self.property_id}')
             # self.property_uuid = 
             # self.property_image_link = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
             # self.properties_dictionnary['Image'].append(self.price)
@@ -105,7 +113,7 @@ class Scraper:
             # self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
             # self.description = self.span_tag.text
             # self.properties_dictionnary['Description'] = self.description
-            time.sleep(2)
+            time.sleep(1)
 
             # sets the task as completed
             # self.data_collection_terminated = True
