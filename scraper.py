@@ -88,15 +88,52 @@ class Scraper:
 
     # clicks on the 'next page' button
     def move_to_the_next_page(self):
+        self.link_collection_terminated = bool
         try:
             # gets the next page button and clicks it
             self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value=".pagination-button.pagination-direction.pagination-direction--next")
             self.move_to_next_page.click()
             time.sleep(2)
+            self.link_collection_terminated = False
         except:
             pass # passes if there is no next page button
-            self.driver(quit)
+            self.link_collection_terminated = True
             print(f'\nThere\'s no \'next page\' button, looks like we reached an impasse! I think we\'re done.')
+            time.sleep(2)
+        
+            print('Hold on, I\'m going to extract all property details now. This might take a while...')
+            
+            self.dictionary = self.extract_the_data_into_a_dictionary()
+
+    def extract_first_property_image(self):
+        pass
+
+    def extract_textual_data(self):
+        pass
 
     def extract_the_data_into_a_dictionary(self):
-        pass
+        self.data_collection_terminated = bool
+        # Iterate through the list of links, and for each iteration, visit the corresponding URL
+        # Sleep
+        # Extract the information of the property
+        # Visit the next URL
+
+        self.properties_dictionnary = {'ID': [], 'Price': [], 'Address': [], 'Bedrooms': [], 'Bathrooms': [], 'Description': []}
+
+        for link in self.whole_query_property_links:
+            self.property_id = 
+            # self.property_price = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
+            # self.properties_dictionnary['Price'].append(self.price)
+            # self.property_address = self.driver.find_element(by=By.XPATH, value='//address[@data-testid="address-label"]').text
+            # self.properties_dictionnary['Address'].append(self.address)
+            # self.property_bedrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
+            # self.properties_dictionnary['Bedrooms'].append(self.bedrooms)
+            # self.property_bathrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
+            # self.properties_dictionnary['Bathrooms'].append(self.bathrooms)
+            # self.div_tag = self.driver.find_element(by=By.XPATH, value='//div[@data-testid="truncated_text_container"]')
+            # self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
+            # self.description = self.span_tag.text
+            # self.properties_dictionnary['Description'] = self.description
+
+            # sets the task as completed
+            self.data_collection_terminated = True
