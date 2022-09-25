@@ -88,14 +88,14 @@ class Scraper:
             time.sleep(2)
 
     def extract_the_data_into_a_dictionary(self):
-        print('Hold on, I\'m going to extract all property details now. This might take a while...')
+        print('Hold on, I\'m going to extract all property details now. This might take a while...\n')
         self.data_collection_terminated = bool
         self.properties_dictionnary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Bedrooms': [], 'Bathrooms': [], 'Description': []}
         time.sleep(2)
 
         for link in self.whole_query_property_links:
             self.driver.get(link)
-            self.property_id = self.whole_query_property_links.index(link) + 1
+            self.property_id = 'property_' + str(self.whole_query_property_links.index(link) + 1)
             self.property_number += 1
             print(f'Property id for property number {self.property_number}: {self.property_id}')
             # self.property_uuid = 
