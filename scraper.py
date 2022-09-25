@@ -17,6 +17,7 @@ class Scraper:
         self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
         time.sleep(2)
         
+        self.page = 0
         # creates list of properties from all pages
         self.whole_query_property_list = []
         # creates list of links for all properties from all pages
@@ -35,10 +36,12 @@ class Scraper:
         except:
             pass # passes if there is no cookies button
             print('\nThere were no cookies to accept.')
+        print('\nI\'m now going to crate lists of properties and their respective links.\nThe lists will be sliced to exclude the \'featured\' property on each page.')
         time.sleep(2)
 
     # creates a crawler
     def get_all_properties_in_the_page(self):
+        self.page =+ 1
         # gets the container where all properties are stored
         self.property_container = self.driver.find_element(By.XPATH, value='//*[@id="l-searchResults"]/div')
         # gets list of all properties inside the container using <div> tags that are its direct children
@@ -46,14 +49,15 @@ class Scraper:
         self.property_list = self.property_container.find_elements(By.XPATH, value='./div[contains(@class,"l-searchResult is-list")]')
         
         # if code works properly, should print '25'
-        print(f'\nNumber of properties on this page before slicing: {len(self.property_list)}\n')
+        print(f'\nNumber of properties on page {self.page} before slicing: {len(self.property_list)}\n')
+        print(f'Number of properties on this page: {len(self.property_list)}\n')
 
         # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
         # if code works properly, should print '24'
         self.property_list = self.property_list[1:]
         
-        print(f'\nThe property list on this page is as follows: {self.property_list}\n')
-        print(f'Number of properties on this page: {len(self.property_list)}\n')
+        print(f'\nThe property list on page {self.page} is as follows:\n')
+        print(f'{self.property_list}\n')
 
     # continues crawler   
     def get_all_property_links(self):
