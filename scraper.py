@@ -47,7 +47,9 @@ class Scraper:
         
         print(f'\nThe property list on this page is as follows: {self.property_list}\n')
         print(f'Number of properties on this page: {len(self.property_list)}\n')
-        
+
+    # continues crawler   
+    def get_all_property_links(self):
          # creates empty list of links to all properties
         self.all_properties_links_list = []
 
