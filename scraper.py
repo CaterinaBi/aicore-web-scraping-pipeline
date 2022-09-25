@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 import requests
 import time
 from time import sleep
+import uuid
 
 class Scraper:
     def __init__(self, url: str = 'https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E274&insId=1&radius=10.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false'):
@@ -25,6 +26,8 @@ class Scraper:
         self.whole_query_property_list = []
         # creates list of links for all properties from all pages
         self.whole_query_property_links = []
+
+        self.properties_dictionnary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Bedrooms': [], 'Bathrooms': [], 'Description': []}
 
     # bypasses cookies
     def bypass_cookies(self):
@@ -88,9 +91,8 @@ class Scraper:
             time.sleep(2)
 
     def extract_the_data_into_a_dictionary(self):
-        print('Hold on, I\'m going to extract all property details now. This might take a while...\n')
+        print('\nHold on, I\'m going to extract all property details now. This might take a while...\n')
         self.data_collection_terminated = bool
-        self.properties_dictionnary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Bedrooms': [], 'Bathrooms': [], 'Description': []}
         time.sleep(2)
 
         for link in self.whole_query_property_links:
@@ -98,7 +100,9 @@ class Scraper:
             self.property_id = 'property_' + str(self.whole_query_property_links.index(link) + 1)
             self.property_number += 1
             print(f'Property id for property number {self.property_number}: {self.property_id}')
-            # self.property_uuid = 
+            self.properties_dictionnary['ID'].append(self.property_id)
+            print(self.properties_dictionnary)
+            # self.property_uuid = self.properties_dictionnary['UUID'].append(self.uuid4())
             # self.property_image_link = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
             # self.properties_dictionnary['Image'].append(self.price)
             # self.property_price = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
