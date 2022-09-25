@@ -17,14 +17,13 @@ class Scraper:
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
         self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
         print('\nWe\'re in! I\'m now going to accept all cookies.')
+        time.sleep(2)
         
         self.page = 0
         # creates list of properties from all pages
         self.whole_query_property_list = []
         # creates list of links for all properties from all pages
         self.whole_query_property_links = []
-
-        time.sleep(2)
 
     # bypasses cookies
     def bypass_cookies(self):
@@ -38,21 +37,6 @@ class Scraper:
             print('\nThere were no cookies to accept.')
         print('\nI\'m now going to crate lists of properties and their respective links.\nThe lists will be sliced to exclude the \'featured\' property on each page.')
         time.sleep(2)
-
-    # creates a crawler # think of a way to get rid of this part of the crawler
-    # def get_all_properties_in_the_page(self):
-        # gets the container where all properties are stored
-        # self.property_container = self.driver.find_element(By.XPATH, value='//*[@id="l-searchResults"]/div')
-        # gets list of all properties inside the container using <div> tags that are its direct children
-        # excludes list items that are ads by using @class=l-searchResult is-list, which is exclusive to properties
-        # self.property_list = self.property_container.find_elements(By.XPATH, value='./div[contains(@class,"l-searchResult is-list")]')
-        # print(f'\nNumber of properties on page {self.page} before slicing: {len(self.property_list)}\n')
-        # print(f'Number of properties on this page: {len(self.property_list)}\n')
-
-        # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
-        # self.property_list = self.property_list[1:]
-        # print(f'\nThe list of properties on page {self.page} is as follows:\n')
-        # print(f'{self.property_list}\n')
 
     # creates crawler   
     def get_all_property_links(self):
@@ -68,17 +52,13 @@ class Scraper:
          # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
         self.all_properties_links_list = self.all_properties_links_list[1:]
         print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
-        # print(f'\nThe list of properties on page {self.page} is as follows:\n')
-        # print(f'{self.all_properties_links_list}\n')
 
+    # creates a list of property links from all scraped pages
     def create_global_list(self):
-        # adds properties from current page to the global list
-        # self.whole_query_property_list.extend(self.property_list)
-        # print(f'\nThe global list of properties now includes {len(self.whole_query_property_list)} properties.')
-        # adds property links from current page to the list
         self.whole_query_property_links.extend(self.all_properties_links_list)
         print(f'The global list of property links now includes {len(self.whole_query_property_links)} links.')
 
+    # scrolls to the bottom of the page
     def scroll_to_bottom(self):
         print('\nScrolling to the bottom of the page right now, then clicking on \'next page\'.')
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -101,12 +81,6 @@ class Scraper:
             print(f'\nThe list of property links that I have extracted is as follows:\n')
             print(f'{self.whole_query_property_links}\n')
             time.sleep(2)
-
-    def extract_first_property_image(self):
-        pass
-
-    def extract_textual_data(self):
-        pass
 
     # def extract_the_data_into_a_dictionary(self):
         # print('Hold on, I\'m going to extract all property details now. This might take a while...')
