@@ -56,6 +56,6 @@ The scraper includes a crawler. The first action performed by the scraper after 
 
 Once a page has been scraped, the scraper moves to the bottom of it and clicks on the 'next page' botton. `try-except` syntax is used to ensure that the programme doesn't crash when there is no more 'next page' button.
 
-# Milestone 4: Retreive data from details page
+## Milestone 4: Retreive data from details page
 
 Meaningful messages are printed throughout to make the user experience more pleasurable.
