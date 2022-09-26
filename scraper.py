@@ -27,7 +27,7 @@ class Scraper:
         # creates list of links for all properties from all pages
         self.whole_query_property_links = []
 
-        self.properties_dictionnary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Bedrooms': [], 'Bathrooms': [], 'Description': []}
+        self.properties_dictionnary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Type': [], 'Bedrooms': [], 'Bathrooms': [], 'Description': []}
 
     # bypasses cookies
     def bypass_cookies(self):
@@ -98,7 +98,7 @@ class Scraper:
         for link in self.whole_query_property_links:
             self.individual_link_to_scrape = link
             self.driver.get(self.individual_link_to_scrape)
-            print(link)
+            print(f'\n{link}')
             time.sleep(2)
 
             # generates property IDs and stores them into dictionnary
@@ -131,9 +131,16 @@ class Scraper:
             print(f'The property address is {self.property_address}.')
             self.properties_dictionnary['Address'].append(self.property_address)
 
+            # property type here
+            self.property_type_div = self.driver.find_element(By.XPATH, value='//div[@class="_3OGW_s5TH6aUqi4uHum5Gy"]')
+            self.property_type = self.property_type_div.find_element(By.XPATH, value='.//p')
+            self.property_type_text = self.property_type.text
+            print(f'The property type is: {self.property_type_text}.')
+
             # finds property bedroom quantity and stores it into dictionnary
-            # self.property_bedrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
-            # self.properties_dictionnary['Bedrooms'].append(self.bedrooms)
+            # self.property_bedrooms = self.driver.find_element(By.CSS_SELECTOR, value='#root > main > div > div.WJG_W7faYk84nW-6sCBVi > div > article:nth-child(5) > div._4hBezflLdgDMdFtURKTWh > div:nth-child(2) > div._3ZGPwl2N1mHAJH3cbltyWn > div._3OGW_s5TH6aUqi4uHum5Gy > p').text
+            # print(f'The property has {self.property_bedrooms} bedrooms.')
+            # self.properties_dictionnary['Bedrooms'].append(self.property_bedrooms)
 
             # self.property_bathrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
             # self.properties_dictionnary['Bathrooms'].append(self.bathrooms)
