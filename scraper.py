@@ -127,7 +127,7 @@ class Scraper:
             self.properties_dictionnary['Price'].append(self.property_price)
 
             # finds property address and stores it into dictionnary
-            self.property_address = self.driver.find_element(by=By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text
+            self.property_address = self.driver.find_element(By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text
             print(f'The property address is {self.property_address}.')
             self.properties_dictionnary['Address'].append(self.property_address)
 
@@ -139,9 +139,12 @@ class Scraper:
             self.properties_dictionnary['Type'].append(self.property_type_text)
 
             # finds property bedroom quantity and stores it into dictionnary
-            # self.property_bedrooms = self.driver.find_element(By.CSS_SELECTOR, value='#root > main > div > div.WJG_W7faYk84nW-6sCBVi > div > article:nth-child(5) > div._4hBezflLdgDMdFtURKTWh > div:nth-child(2) > div._3ZGPwl2N1mHAJH3cbltyWn > div._3OGW_s5TH6aUqi4uHum5Gy > p').text
-            # print(f'The property has {self.property_bedrooms} bedrooms.')
-            # self.properties_dictionnary['Bedrooms'].append(self.property_bedrooms)
+            # find way to handle exceptions as some properties have no bedrooms
+            self.property_bedrooms_div = self.driver.find_element(By.XPATH, value='//div[2][@class="_3gIoc-NFXILAOZEaEjJi1n"]')
+            self.property_bedrooms = self.property_bedrooms_div.find_element(By.XPATH, value='.//p')
+            self.property_bedrooms_text = self.property_bedrooms.text
+            print(f'The property has {self.property_bedrooms_text} bedrooms.')
+            self.properties_dictionnary['Bedrooms'].append(self.property_bedrooms_text)
 
             # self.property_bathrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
             # self.properties_dictionnary['Bathrooms'].append(self.bathrooms)
