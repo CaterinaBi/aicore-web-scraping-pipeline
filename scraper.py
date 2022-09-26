@@ -96,7 +96,10 @@ class Scraper:
         time.sleep(2)
 
         for link in self.whole_query_property_links:
-            self.driver.get(link)
+            self.individual_link_to_scrape = link
+            self.driver.get(self.individual_link_to_scrape)
+            print(link)
+            time.sleep(2)
 
             # generates property IDs and stores them into dictionnary
             self.property_id = 'property_' + str(self.whole_query_property_links.index(link) + 1)
@@ -107,18 +110,31 @@ class Scraper:
             # generates property UUIDs and stores them into dictionnary
             self.uuid4 = str(uuid.uuid4())
             self.properties_dictionnary['UUID'].append(self.uuid4)
-            print(f'Property id for property number {self.property_number}: {self.uuid4}')
+            print(f'Property uuid4 for property number {self.property_number}: {self.uuid4}')
 
-            # self.property_image_link = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
-            # self.properties_dictionnary['Image'].append(self.price)
-            # self.property_price = self.driver.find_element(by=By.XPATH, value='//p[@data-testid="price"]').text
-            # self.properties_dictionnary['Price'].append(self.price)
+            # finds first image link for each property and store them into dictionnary
+            # self.property_image_link = self.driver.find_element(By.ID, "media0")
+            # self.property_image_link = self.property_image_link.get_attribute("src")
+            # self.property_image_link = self.driver.find_elements(By.CSS_SELECTOR, value='#media0 > img')
+            # self.property_image = "(//*[@id='media0'])"
+            # self.property_image_link = self.driver.find_element(self.property_image).get_attribute('src')
+            # self.properties_dictionnary['Image'].append(self.property_image_link)
+            # print(f'First image link for property number {self.property_number}: {self.property_image_link}')
+
+            # finds property price and stores it into dictionnary
+            # self.property_price = self.driver.find_element(By.XPATH, '//div[@data-testid="priceQualifier"]').text
+            # print(f'The property price is {self.property_price}.')
+            # self.properties_dictionnary['Price'].append(self.property_price)
+
             # self.property_address = self.driver.find_element(by=By.XPATH, value='//address[@data-testid="address-label"]').text
             # self.properties_dictionnary['Address'].append(self.address)
+
             # self.property_bedrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
             # self.properties_dictionnary['Bedrooms'].append(self.bedrooms)
+
             # self.property_bathrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
             # self.properties_dictionnary['Bathrooms'].append(self.bathrooms)
+
             # self.div_tag = self.driver.find_element(by=By.XPATH, value='//div[@data-testid="truncated_text_container"]')
             # self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
             # self.description = self.span_tag.text
