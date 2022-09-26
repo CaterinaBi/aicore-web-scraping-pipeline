@@ -124,11 +124,14 @@ class Scraper:
             # finds property price and stores it into dictionnary
             self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text
             print(f'The property price is {self.property_price}.')
-            # self.properties_dictionnary['Price'].append(self.property_price)
+            self.properties_dictionnary['Price'].append(self.property_price)
 
-            # self.property_address = self.driver.find_element(by=By.XPATH, value='//address[@data-testid="address-label"]').text
-            # self.properties_dictionnary['Address'].append(self.address)
+            # finds property address and stores it into dictionnary
+            self.property_address = self.driver.find_element(by=By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text
+            print(f'The property address is {self.property_address}.')
+            self.properties_dictionnary['Address'].append(self.property_address)
 
+            # finds property bedroom quantity and stores it into dictionnary
             # self.property_bedrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
             # self.properties_dictionnary['Bedrooms'].append(self.bedrooms)
 
