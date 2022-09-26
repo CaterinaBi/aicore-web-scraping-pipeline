@@ -133,21 +133,28 @@ class Scraper:
 
             # property type here
             self.property_type_div = self.driver.find_element(By.XPATH, value='//div[@class="_3OGW_s5TH6aUqi4uHum5Gy"]')
-            self.property_type = self.property_type_div.find_element(By.XPATH, value='.//p')
-            self.property_type_text = self.property_type.text
-            print(f'The property type is: {self.property_type_text}.')
-            self.properties_dictionnary['Type'].append(self.property_type_text)
+            self.property_type = self.property_type_div.find_element(By.XPATH, value='.//p').text
+            # self.property_type_text = self.property_type
+            if self.property_type == '3,234,766 sq. ft.':
+                self.property_type = 'Land'
+            print(f'The property type is: {self.property_type}.')
+            self.properties_dictionnary['Type'].append(self.property_type)
 
-            # finds property bedroom quantity and stores it into dictionnary
-            # find way to handle exceptions as some properties have no bedrooms
-            self.property_bedrooms_div = self.driver.find_element(By.XPATH, value='//div[2][@class="_3gIoc-NFXILAOZEaEjJi1n"]')
-            self.property_bedrooms = self.property_bedrooms_div.find_element(By.XPATH, value='.//p')
-            self.property_bedrooms_text = self.property_bedrooms.text
-            print(f'The property has {self.property_bedrooms_text} bedrooms.')
-            self.properties_dictionnary['Bedrooms'].append(self.property_bedrooms_text)
+            if self.property_type == 'Land':
+                self.properties_dictionnary['Bedrooms'].append('NONE')
+                self.properties_dictionnary['Bathrooms'].append('NONE')
+                print(f'The property has no bedrooms or bathrooms.')
+            else: 
+                # finds property bedroom quantity and stores it into dictionnary
+                # find way to handle exceptions as some properties have no bedrooms
+                self.property_bedrooms_div = self.driver.find_element(By.XPATH, value='//div[2][@class="_3gIoc-NFXILAOZEaEjJi1n"]')
+                self.property_bedrooms = self.property_bedrooms_div.find_element(By.XPATH, value='.//p').text
+                # self.property_bedrooms_text = self.property_bedrooms
+                print(f'The property has {self.property_bedrooms} bedrooms.')
+                self.properties_dictionnary['Bedrooms'].append(self.property_bedrooms)
 
-            # self.property_bathrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
-            # self.properties_dictionnary['Bathrooms'].append(self.bathrooms)
+                # self.property_bathrooms = self.driver.find_element(by=By.XPATH, value='//div[@class="c-PJLV c-PJLV-iiNveLf-css"]').text
+                # self.properties_dictionnary['Bathrooms'].append(self.bathrooms)
 
             # self.div_tag = self.driver.find_element(by=By.XPATH, value='//div[@data-testid="truncated_text_container"]')
             # self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
