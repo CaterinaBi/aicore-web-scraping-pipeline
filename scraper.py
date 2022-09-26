@@ -122,8 +122,8 @@ class Scraper:
             # print(f'First image link for property number {self.property_number}: {self.property_image_link}')
 
             # finds property price and stores it into dictionnary
-            # self.property_price = self.driver.find_element(By.XPATH, '//div[@data-testid="priceQualifier"]').text
-            # print(f'The property price is {self.property_price}.')
+            self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text
+            print(f'The property price is {self.property_price}.')
             # self.properties_dictionnary['Price'].append(self.property_price)
 
             # self.property_address = self.driver.find_element(by=By.XPATH, value='//address[@data-testid="address-label"]').text
