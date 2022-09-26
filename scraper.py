@@ -154,15 +154,16 @@ class Scraper:
                 self.properties_dictionnary['Bedrooms'].append(self.property_bedrooms)
 
                 # finds property bathroom quantity and stores it into dictionnary
-                self.property_bathrooms_div = self.driver.find_element(By.XPATH, value='//div[@class="_4hBezflLdgDMdFtURKTWh"]')
-                self.property_bathrooms = self.property_bedrooms_div.find_element(By.XPATH, value='.//p').text
-                print(f'The property has {self.property_bathrooms} bedrooms.')
-                self.properties_dictionnary['Bathrooms'].append(self.property_bathrooms)
+                # self.property_bathrooms_div = self.driver.find_element(By.XPATH, value='//div[@class="_4hBezflLdgDMdFtURKTWh"]')
+                # self.property_bathrooms = self.property_bathrooms_div.find_element(By.XPATH, value='.//p[3]').text
+                # print(f'The property has {self.property_bathrooms} bathrooms.')
+                # self.properties_dictionnary['Bathrooms'].append(self.property_bathrooms)
 
-            # self.div_tag = self.driver.find_element(by=By.XPATH, value='//div[@data-testid="truncated_text_container"]')
-            # self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
-            # self.description = self.span_tag.text
-            # self.properties_dictionnary['Description'] = self.description
+            self.description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text
+            #self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
+            print(f'The property description is as follows: {self.description}.')
+            self.properties_dictionnary['Description'] = self.description
+            
             time.sleep(2)
 
         print(self.properties_dictionnary)
