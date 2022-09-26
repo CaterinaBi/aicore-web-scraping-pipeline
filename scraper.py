@@ -159,10 +159,10 @@ class Scraper:
                 # print(f'The property has {self.property_bathrooms} bathrooms.')
                 # self.properties_dictionnary['Bathrooms'].append(self.property_bathrooms)
 
-            self.description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text
+            self.property_description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text
             #self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
-            print(f'The property description is as follows: {self.description}.')
-            self.properties_dictionnary['Description'] = self.description
+            print(f'The property description is as follows: {self.property_description}.')
+            self.properties_dictionnary['Description'] = self.property_description
             
             time.sleep(2)
 
