@@ -27,7 +27,7 @@ class Scraper:
         # creates list of links for all properties from all pages
         self.whole_query_property_links = []
 
-        self.properties_dictionnary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Type': [], 'Bedrooms': [], 'Bathrooms': [], 'Description': []}
+        self.properties_dictionnary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Type': [], 'Bedrooms': [], 'Description': []}
 
     # bypasses cookies
     def bypass_cookies(self):
@@ -117,7 +117,7 @@ class Scraper:
             self.property_image_link_div_a = self.property_image_link_div.find_element(By.TAG_NAME, 'a')
             self.property_image_link = self.property_image_link_div_a.get_attribute('href')
             # self.property_image_link = self.property_image_a.get_attribute('href')
-            print(f'The link to the floorplan image of property {self.property_number} is: {self.link}')
+            print(f'The link to the floorplan image of property {self.property_number} is: {self.property_image_link}')
             self.properties_dictionnary['Image'].append(self.property_image_link)
 
             # finds property price and stores it into dictionnary
@@ -142,7 +142,7 @@ class Scraper:
             if self.property_type == 'Land':
                 self.properties_dictionnary['Bedrooms'].append('NONE')
                 self.properties_dictionnary['Bathrooms'].append('NONE')
-                print(f'The property has no bedrooms or bathrooms.')
+                print(f'The property has no bedrooms.')
             else: 
                 # finds property bedroom quantity and stores it into dictionnary
                 # find way to handle exceptions as some properties have no bedrooms
@@ -152,12 +152,6 @@ class Scraper:
                 print(f'The property has {self.property_bedrooms[1]} bedrooms.')
                 self.properties_dictionnary['Bedrooms'].append(self.property_bedrooms)
 
-                # finds property bathroom quantity and stores it into dictionnary
-                # self.property_bathrooms_div = self.driver.find_element(By.XPATH, value='//div[@class="_4hBezflLdgDMdFtURKTWh"]')
-                # self.property_bathrooms = self.property_bathrooms_div.find_element(By.XPATH, value='.//p[3]').text
-                # print(f'The property has {self.property_bathrooms} bathrooms.')
-                # self.properties_dictionnary['Bathrooms'].append(self.property_bathrooms)
-
             self.property_description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text
             #self.span_tag = self.div_tag.find_element(by=By.XPATH, value='.//span')
             print(f'The property description is as follows: {self.property_description}.')
@@ -165,6 +159,6 @@ class Scraper:
             
             time.sleep(2)
 
-        self.properties_dictionnary['Image'].append(self.property_image_links)
+        # self.properties_dictionnary['Image'].append(self.property_image_links)
         print(self.properties_dictionnary)
         self.data_collection_terminated = True # sets the task as completed
