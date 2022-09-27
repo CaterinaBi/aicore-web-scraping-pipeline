@@ -2,6 +2,7 @@ from pyrsistent import s
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
+import json
 import time
 from time import sleep
 import uuid
@@ -41,7 +42,7 @@ class Scraper:
     def get_all_property_links(self):
         self.page += 1
         # delete if-statement to extract from all pages
-        if self.page == 3:
+        if self.page == 2:
             self.extract_the_data_into_a_dictionary()
         else:
             print(f'\nWe\'re on page {self.page} now.')
@@ -155,3 +156,7 @@ class Scraper:
 
         print(self.properties_dictionary)
         self.data_collection_terminated = True # sets the task as completed
+
+    def save_data_to_json(self):
+        with open("data.json", "w") as outfile:
+            json.dump(self.properties_dictionary, outfile)
