@@ -41,7 +41,7 @@ class Scraper:
     def get_all_property_links(self):
         self.page += 1
         # delete if-statement to extract from all pages
-        if self.page == 6:
+        if self.page == 3:
             self.extract_the_data_into_a_dictionary()
         else:
             print(f'\nWe\'re on page {self.page} now.')
