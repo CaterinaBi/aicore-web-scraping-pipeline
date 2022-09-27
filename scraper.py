@@ -86,6 +86,7 @@ class Scraper:
             print(f'{self.whole_query_property_links}\n')
             time.sleep(2)
 
+    # create individual methods at refactoring, then simpler dictionary method
     def extract_the_data_into_a_dictionary(self):
         print('\nHold on, I\'m going to extract all property details now. This might take a while...\n')
         self.data_collection_terminated = bool
@@ -136,6 +137,7 @@ class Scraper:
             print(f'The property type is: {self.property_type}.')
             self.properties_dictionary['Type'].append(self.property_type)
 
+            # solve 'no bedroom' issue at refactoring (try-except)
             # finds bedroom quantity and stores it into dictionary
             if self.property_type == 'Land':
                 self.properties_dictionary['Bedrooms'].append('NONE')
@@ -147,6 +149,7 @@ class Scraper:
                 print(f'The property has {self.property_bedrooms[1]} bedrooms.')
                 self.properties_dictionary['Bedrooms'].append(self.property_bedrooms)
 
+            # solve 'read more' issue at refactoring
             # finds property description and stores it into dictionary
             self.property_description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text
             print(f'The property description is as follows: {self.property_description}.')
