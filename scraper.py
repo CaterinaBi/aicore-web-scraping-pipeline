@@ -113,12 +113,12 @@ class Scraper:
             self.properties_dictionnary['UUID'].append(self.uuid4)
 
             # extracts property floorplan images and stores them into dictionnary
-            self.house_property = self.driver.find_element(By.XPATH, value='//div[@class="mtyLjuu2GD7KK4pvhCkS5"]') # Change this xpath with the xpath the current page has in their properties
-            self.a_tag = self.house_property.find_element(By.TAG_NAME, 'a')
-            self.link = self.a_tag.get_attribute('href')
+            self.property_image_link_div = self.driver.find_element(By.XPATH, value='//div[@class="mtyLjuu2GD7KK4pvhCkS5"]') # Change this xpath with the xpath the current page has in their properties
+            self.property_image_link_div_a = self.property_image_link_div.find_element(By.TAG_NAME, 'a')
+            self.property_image_link = self.property_image_link_div_a.get_attribute('href')
             # self.property_image_link = self.property_image_a.get_attribute('href')
-            print(f'The link for the first image of {self.property_number} is: {self.link}')
-            #self.properties_dictionnary['Image'].append(self.property_image_link)
+            print(f'The link to the floorplan image of property {self.property_number} is: {self.link}')
+            self.properties_dictionnary['Image'].append(self.property_image_link)
 
             # finds property price and stores it into dictionnary
             self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text
