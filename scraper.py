@@ -152,6 +152,13 @@ class Scraper:
 
             # solve 'read more' issue at refactoring
             # finds property description and stores it into dictionary
+            try: 
+                # gets the read more button and clicks it
+                self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value="button._33m7y0JkS3Q_2tRLrMPB9U")
+                self.move_to_next_page.click()
+            except:
+                pass # passes if there is no read more button
+
             self.property_description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text
             print(f'The property description is as follows: {self.property_description}.')
             self.properties_dictionary['Description'].append(self.property_description)
