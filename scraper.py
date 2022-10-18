@@ -23,8 +23,10 @@ class Scraper:
         self.whole_query_property_list = []
         # creates list of links for all properties from all pages
         self.whole_query_property_links = []
+        # creates list to store property dictionaries
+        self.properties_dict_list = []
         # creates dictionary to store data
-        self.properties_dictionary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Type': [], 'Bedrooms': [], 'Description': []}
+        # self.properties_dictionary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Type': [], 'Bedrooms': [], 'Description': []}
 
     # bypasses cookies
     def bypass_cookies(self):
@@ -99,6 +101,8 @@ class Scraper:
             print(f'\n{link}')
             time.sleep(2)
 
+            self.properties_dictionary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Type': [], 'Bedrooms': [], 'Description': []}
+
             # generates property IDs and stores them into dictionary
             self.property_id = 'property_' + str(self.whole_query_property_links.index(link) + 1)
             self.property_number += 1
@@ -150,7 +154,6 @@ class Scraper:
                 print(f'The property has {self.property_bedrooms[1]} bedrooms.')
                 self.properties_dictionary['Bedrooms'].append(self.property_bedrooms)
 
-            # solve 'read more' issue at refactoring
             # finds property description and stores it into dictionary
             try: 
                 # gets the read more button and clicks it
@@ -162,12 +165,15 @@ class Scraper:
             self.property_description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text
             print(f'The property description is as follows: {self.property_description}.')
             self.properties_dictionary['Description'].append(self.property_description)
+
+            # appends dictionary to properties dictionaries list
+            self.properties_dict_list.append(self.properties_dictionary)
             
             time.sleep(2)
 
-        print(self.properties_dictionary)
+        print(self.properties_dict_list)
         self.data_collection_terminated = True # sets the task as completed
 
-def save_data_to_json(self):
-    with open("data.json", "w") as outfile:
-        json.dump(self.properties_dictionary, outfile)
+    def save_data_to_json(self):
+        with open("data.json", "w") as outfile:
+            json.dump(self.properties_dictionary, outfile)
