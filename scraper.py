@@ -105,29 +105,29 @@ class Scraper:
             self.property_id = 'property_' + str(self.whole_query_property_links.index(link) + 1)
             self.property_number += 1
             print(f'Property id for property number {self.property_number}: {self.property_id}')
-            self.properties_dictionary['ID'].append(self.property_id)
+            self.properties_dictionary['ID'] = self.property_id
 
             # generates property UUIDs and stores them into dictionary
             self.uuid4 = str(uuid.uuid4())
             print(f'Property uuid4 for property number {self.property_number}: {self.uuid4}')
-            self.properties_dictionary['UUID'].append(self.uuid4)
+            self.properties_dictionary['UUID'] = self.uuid4
 
             # extracts property floorplan image link and stores them into dictionary
             self.property_image_link_div = self.driver.find_element(By.XPATH, value='//div[@class="mtyLjuu2GD7KK4pvhCkS5"]') # Change this xpath with the xpath the current page has in their properties
             self.property_image_link_div_a = self.property_image_link_div.find_element(By.TAG_NAME, 'a')
             self.property_image_link = self.property_image_link_div_a.get_attribute('href')
             print(f'The link to the floorplan image of property {self.property_number} is: {self.property_image_link}')
-            self.properties_dictionary['Image'].append(self.property_image_link)
+            self.properties_dictionary['Image'] = self.property_image_link
 
             # finds property price and stores it into dictionary
             self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text
             print(f'The property price is {self.property_price}.')
-            self.properties_dictionary['Price'].append(self.property_price)
+            self.properties_dictionary['Price'] = self.property_price
 
             # finds property address and stores it into dictionary
             self.property_address = self.driver.find_element(By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text
             print(f'The property address is {self.property_address}.')
-            self.properties_dictionary['Address'].append(self.property_address)
+            self.properties_dictionary['Address'] = self.property_address
 
             # finds property type and stores it into dictionary
             self.property_type_div = self.driver.find_element(By.XPATH, value='//div[@class="_3OGW_s5TH6aUqi4uHum5Gy"]')
@@ -138,18 +138,18 @@ class Scraper:
             elif self.property_type == 'Ask agent':
                 self.property_type = 'Undefined'
             print(f'The property type is: {self.property_type}.')
-            self.properties_dictionary['Type'].append(self.property_type)
+            self.properties_dictionary['Type'] = self.property_type
 
             # finds bedroom quantity and stores it into dictionary
             if self.property_type == 'Land':
-                self.properties_dictionary['Bedrooms'].append('NONE')
+                self.properties_dictionary['Bedrooms'] = 'NONE'
                 print(f'The property has no bedrooms.')
             else: 
                 # finds property bedroom quantity and stores it into dictionary
                 self.property_bedrooms_div = self.driver.find_element(By.XPATH, value='//div[2][@class="_3gIoc-NFXILAOZEaEjJi1n"]')
                 self.property_bedrooms = self.property_bedrooms_div.find_element(By.XPATH, value='.//p').text
                 print(f'The property has {self.property_bedrooms[1]} bedrooms.')
-                self.properties_dictionary['Bedrooms'].append(self.property_bedrooms)
+                self.properties_dictionary['Bedrooms'] = self.property_bedrooms
 
             # finds property description and stores it into dictionary
             try: 
@@ -161,7 +161,7 @@ class Scraper:
 
             self.property_description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text
             print(f'The property description is as follows: {self.property_description}.')
-            self.properties_dictionary['Description'].append(self.property_description)
+            self.properties_dictionary['Description'] = self.property_description
 
             # appends dictionary to properties dictionaries list
             self.properties_dict_list.append(self.properties_dictionary)
