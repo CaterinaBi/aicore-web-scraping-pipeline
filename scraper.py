@@ -1,6 +1,7 @@
 from pyrsistent import s
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 import json
 import time
@@ -10,7 +11,7 @@ import uuid
 class Scraper:
     def __init__(self, url: str = 'https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E274&insId=1&radius=10.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false'):
         print('\nHi! I\'m Bot. I\'m now going to open the website that you chose.')
-        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
         print('\nWe\'re in! I\'m now going to accept all cookies.')
         time.sleep(2)
@@ -109,7 +110,7 @@ class Scraper:
             print(f'Property uuid4 for property number {self.property_number}: {self.uuid4}')
             self.properties_dictionary['UUID'].append(self.uuid4)
 
-            # extracts property floorplan images and stores them into dictionary
+            # extracts property floorplan image link and stores them into dictionary
             self.property_image_link_div = self.driver.find_element(By.XPATH, value='//div[@class="mtyLjuu2GD7KK4pvhCkS5"]') # Change this xpath with the xpath the current page has in their properties
             self.property_image_link_div_a = self.property_image_link_div.find_element(By.TAG_NAME, 'a')
             self.property_image_link = self.property_image_link_div_a.get_attribute('href')
@@ -160,6 +161,6 @@ class Scraper:
         print(self.properties_dictionary)
         self.data_collection_terminated = True # sets the task as completed
 
-    def save_data_to_json(self):
-        with open("data.json", "w") as outfile:
-            json.dump(self.properties_dictionary, outfile)
+def save_data_to_json(self):
+    with open("data.json", "w") as outfile:
+        json.dump(self.properties_dictionary, outfile)

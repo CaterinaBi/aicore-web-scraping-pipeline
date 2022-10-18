@@ -13,4 +13,4 @@ if __name__ == '__main__':
             bot.extract_the_data_into_a_dictionary()
             if bot.data_collection_terminated == True:
                 print('\nHurray! The job is done :)')
-                bot.save_data_to_json()
+                # bot.save_data_to_json()
