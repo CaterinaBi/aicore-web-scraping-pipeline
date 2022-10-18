@@ -25,8 +25,6 @@ class Scraper:
         self.whole_query_property_links = []
         # creates list to store property dictionaries
         self.properties_dict_list = []
-        # creates dictionary to store data
-        # self.properties_dictionary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Type': [], 'Bedrooms': [], 'Description': []}
 
     # bypasses cookies
     def bypass_cookies(self):
@@ -101,7 +99,7 @@ class Scraper:
             print(f'\n{link}')
             time.sleep(2)
 
-            self.properties_dictionary = {'ID': [], 'UUID': [], 'Image': [], 'Price': [], 'Address': [], 'Type': [], 'Bedrooms': [], 'Description': []}
+            self.properties_dictionary = {}
 
             # generates property IDs and stores them into dictionary
             self.property_id = 'property_' + str(self.whole_query_property_links.index(link) + 1)
@@ -142,7 +140,6 @@ class Scraper:
             print(f'The property type is: {self.property_type}.')
             self.properties_dictionary['Type'].append(self.property_type)
 
-            # solve 'no bedroom' issue at refactoring (try-except)
             # finds bedroom quantity and stores it into dictionary
             if self.property_type == 'Land':
                 self.properties_dictionary['Bedrooms'].append('NONE')
