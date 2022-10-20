@@ -7,6 +7,7 @@ import json
 import time
 from time import sleep
 import uuid
+# from google.colab import files
 
 class Scraper:
     def __init__(self, url: str = 'https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E274&insId=1&radius=10.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false'):
@@ -61,7 +62,7 @@ class Scraper:
     # creates a list of property links from all scraped pages
     def create_global_list(self):
         self.whole_query_property_links.extend(self.all_properties_links_list)
-        print(f'The global list of property links now includes {len(self.whole_query_property_links)} links.')
+        # print(f'The global list of property links now includes {len(self.whole_query_property_links)} links.')
 
     # scrolls to the bottom of the page
     def scroll_to_bottom(self):
@@ -77,20 +78,22 @@ class Scraper:
             self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value=".pagination-button.pagination-direction.pagination-direction--next")
             self.move_to_next_page.click()
             time.sleep(2)
+            
             self.link_collection_terminated = False
         except:
             pass # passes if there is no next page button
-            self.link_collection_terminated = True
             print(f'\nThere\'s no \'next page\' button, looks like we reached an impasse! I think we\'re done.')
             time.sleep(2)
             print(f'\nThe list of property links that I have extracted is as follows:\n')
             print(f'{self.whole_query_property_links}\n')
             time.sleep(2)
 
+            # self.link_collection_terminated = True
+
     # create individual methods at refactoring, then simpler dictionary method
     def extract_the_data_into_a_dictionary(self):
         print('\nHold on, I\'m going to extract all property details now. This might take a while...\n')
-        self.data_collection_terminated = bool
+        # self.data_collection_terminated = bool
         time.sleep(2)
 
         for link in self.whole_query_property_links:
@@ -141,7 +144,7 @@ class Scraper:
             self.properties_dictionary['Type'] = self.property_type
 
             # finds bedroom quantity and stores it into dictionary
-            if self.property_type == 'Land':
+            if self.property_type == 'Land' or 'Undefined':
                 self.properties_dictionary['Bedrooms'] = 'NONE'
                 print(f'The property has no bedrooms.')
             else: 
@@ -169,8 +172,9 @@ class Scraper:
             time.sleep(2)
 
         print(self.properties_dict_list)
-        self.data_collection_terminated = True # sets the task as completed
+        # self.data_collection_terminated = True # sets the task as completed
 
+    
     def save_data_to_json(self):
         with open("data.json", "w") as outfile:
-            json.dump(self.properties_dictionary, outfile)
+            json.dump(self.properties_dict_list, outfile)
