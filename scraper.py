@@ -24,7 +24,7 @@ class Scraper:
         self.whole_query_property_links = [] # links to all properties from all pages
         self.properties_dict_list = [] # store property dictionaries
 
-    def bypass_cookies(self):
+    def __bypass_cookies(self):
         try:
             self.accept_cookies_button = self.driver.find_element(By.XPATH, value='//button[@class="optanon-allow-all accept-cookies-button"]')
             self.accept_cookies_button.click()
@@ -36,7 +36,7 @@ class Scraper:
     ###### create list of property links ######
     ###########################################
 
-    def get_all_property_links(self):
+    def __get_all_property_links(self):
         self.page += 1 # needs to stay here at all times
         self.all_properties_links_list = []
 
@@ -46,14 +46,14 @@ class Scraper:
         # slashes the list to exclude the featured property (repeated later in the HTML code)
         self.all_properties_links_list = self.all_properties_links_list[1:]
 
-    def create_global_list(self):
+    def __create_global_list(self):
         self.whole_query_property_links.extend(self.all_properties_links_list)
 
-    def scroll_to_bottom(self):
+    def __scroll_to_bottom(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(2)
 
-    def move_to_the_next_page(self):
+    def __move_to_the_next_page(self):
         try:
             self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value=".pagination-button.pagination-direction.pagination-direction--next")
             self.move_to_next_page.click()
@@ -66,17 +66,17 @@ class Scraper:
     ###### extract all property details ######
     ##########################################
 
-    def generate_property_ids(self):
+    def __generate_property_ids(self):
         self.property_number += 1
         self.property_id = 'property_' + str(self.property_number) # generates & stores property IDs
         self.uuid4 = str(uuid.uuid4()) # generates & stores property UUIDs
 
-    def get_floorplan_image_link(self):
+    def __get_floorplan_image_link(self):
         self.property_image_link_div = self.driver.find_element(By.XPATH, value='//div[@class="mtyLjuu2GD7KK4pvhCkS5"]') # extracts & stores property floorplan image link
         self.property_image_link_div_a = self.property_image_link_div.find_element(By.TAG_NAME, 'a')
         self.property_image_link = self.property_image_link_div_a.get_attribute('href')
 
-    def get_property_metrics(self):
+    def __get_property_metrics(self):
         self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text # finds & stores property price
         self.property_address = self.driver.find_element(By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text # finds & stores property address
         self.property_type_div = self.driver.find_element(By.XPATH, value='//div[@class="_3OGW_s5TH6aUqi4uHum5Gy"]') # finds & stores property type
@@ -94,7 +94,7 @@ class Scraper:
             self.property_bedrooms_div = self.driver.find_element(By.XPATH, value='//div[2][@class="_3gIoc-NFXILAOZEaEjJi1n"]') # finds & stores bedroom number
             self.property_bedrooms = self.property_bedrooms_div.find_element(By.XPATH, value='.//p').text
 
-    def get_property_description(self):
+    def __get_property_description(self):
         try: # clicks on 'read more' button in description
             self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value="button._33m7y0JkS3Q_2tRLrMPB9U")
             self.move_to_next_page.click()
@@ -107,7 +107,7 @@ class Scraper:
     ###### stores data into list of dictionaries ######
     ###################################################
 
-    def extract_the_data_into_a_dictionary(self):
+    def __extract_the_data_into_a_dictionary(self):
         self.properties_dictionary = {}
 
         for property_link in self.whole_query_property_links:
@@ -140,7 +140,7 @@ class Scraper:
     ###### download images, store data in .json file ######
     #######################################################
 
-    def download_images(self):
+    def __download_images(self):
         self.image_id = 0
         for self.dict in self.properties_dict_list:
             self.image_id += 1
@@ -152,6 +152,6 @@ class Scraper:
             with open(self.image_name, 'wb') as handler:       
                 handler.write(img_data)
     
-    def save_data_to_json(self):
+    def __save_data_to_json(self):
         with open("data.json", "w") as outfile:
             json.dump(self.properties_dict_list, outfile)
