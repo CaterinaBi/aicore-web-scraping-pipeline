@@ -42,8 +42,8 @@ The project is written in Python and utilises OOP concepts throughout. In this m
 if __name__ == '__main__':
     bot = Scraper()
     bot.bypass_cookies()
-    while True:
-        bot.get_all_properties_in_the_page()
+
+    while bot.page <2: # use while True when scraping all pages
         bot.get_all_property_links()
         bot.create_global_list()
         bot.scroll_to_bottom()
@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
 The scraper includes a crawler. The first action performed by the scraper after accepting the cookies is indeed that of finding all properties on the page, and then all the links to said properties. These are stored in dedicated lists, and then added to a `all_properties_links` which is extended with all extracted elements (properties and their links) from all pages. The first property on the property list from each page is always a 'featured property' and is therefore systematically sliced out.
 
-Once a page has been scraped, the scraper moves to the bottom of it and clicks on the 'next page' botton. `try-except` syntax is used to ensure that the programme doesn't crash when there is no more 'next page' button.
+Once a page has been scraped, the scraper moves to the bottom of it and clicks on the 'next page' botton. `try-except` syntax is used to ensure that the programme doesn't crash when there is no more 'next page' button. The condition in the while-loop ensures that the code is only run and tested only on the first two pages for now.
 
 Meaningful messages are printed throughout at this stage.
 

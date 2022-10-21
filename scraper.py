@@ -15,7 +15,6 @@ class Scraper:
         print('\nHi! I\'m Bot. I\'m now going to open the website that you chose.')
         self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
-        print('\nWe\'re in! I\'m now going to accept all cookies.')
         time.sleep(2)
         
         self.page = 0
