@@ -1,5 +1,6 @@
 from scraper import Scraper
-
+from selenium import webdriver
+import time
 import json
 
 if __name__ == '__main__':
@@ -13,7 +14,9 @@ if __name__ == '__main__':
         bot.move_to_the_next_page()
 
     bot.extract_the_data_into_a_dictionary()
-    print('\nHurray! The job is done :)')
+    print('\n---Dictionary correctly created.')
 
     bot.download_images()
+    print('\n---Images correctly downloaded.')
     bot.save_data_to_json()
+    print('\n---Data correctly saved locally.')

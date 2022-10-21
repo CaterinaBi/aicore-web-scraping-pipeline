@@ -12,7 +12,7 @@ import requests
 
 class Scraper:
     def __init__(self, url: str = 'https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E274&insId=1&radius=10.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false'):
-        print('\nHi! I\'m Bot. I\'m now going to open the website that you chose.')
+        print('\n---Program initialised.')
         self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
         time.sleep(2)
@@ -31,6 +31,10 @@ class Scraper:
         except:
             pass # passes if there is no cookies button
         time.sleep(2)
+
+    ###########################################
+    ###### create list of property links ######
+    ###########################################
 
     def get_all_property_links(self):
         self.page += 1 # needs to stay here at all times
@@ -58,65 +62,83 @@ class Scraper:
             pass # passes if there is no 'next page' button
             time.sleep(2)
 
+    ##########################################
+    ###### extract all property details ######
+    ##########################################
+
+    def generate_property_ids(self):
+        self.property_number += 1
+        self.property_id = 'property_' + str(self.property_number) # generates & stores property IDs
+        self.uuid4 = str(uuid.uuid4()) # generates & stores property UUIDs
+
+    def get_floorplan_image_link(self):
+        self.property_image_link_div = self.driver.find_element(By.XPATH, value='//div[@class="mtyLjuu2GD7KK4pvhCkS5"]') # extracts & stores property floorplan image link
+        self.property_image_link_div_a = self.property_image_link_div.find_element(By.TAG_NAME, 'a')
+        self.property_image_link = self.property_image_link_div_a.get_attribute('href')
+
+    def get_property_metrics(self):
+        self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text # finds & stores property price
+        self.property_address = self.driver.find_element(By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text # finds & stores property address
+        self.property_type_div = self.driver.find_element(By.XPATH, value='//div[@class="_3OGW_s5TH6aUqi4uHum5Gy"]') # finds & stores property type
+        self.property_type = self.property_type_div.find_element(By.XPATH, value='.//p').text
+            
+         # fix problems caused by type unaccuracies in the website
+        if self.property_type == '3,234,766 sq. ft.':
+            self.property_type = 'Land'
+        elif self.property_type == 'Ask agent':
+            self.property_type = 'Undefined'
+
+        if self.property_type == 'Land' or self.property_type == 'Undefined':
+            self.property_bedrooms = 'NONE'
+        else: 
+            self.property_bedrooms_div = self.driver.find_element(By.XPATH, value='//div[2][@class="_3gIoc-NFXILAOZEaEjJi1n"]') # finds & stores bedroom number
+            self.property_bedrooms = self.property_bedrooms_div.find_element(By.XPATH, value='.//p').text
+
+    def get_property_description(self):
+        try: # clicks on 'read more' button in description
+            self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value="button._33m7y0JkS3Q_2tRLrMPB9U")
+            self.move_to_next_page.click()
+        except:
+            pass # passes if there is no read more button
+
+        self.property_description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text # finds & stores property description
+
+    ###################################################
+    ###### stores data into list of dictionaries ######
+    ###################################################
+
     def extract_the_data_into_a_dictionary(self):
-        for link in self.whole_query_property_links:
-            self.individual_link_to_scrape = link
-            self.driver.get(self.individual_link_to_scrape)
-            print(f'\n{link}')
+        self.properties_dictionary = {}
+
+        for property_link in self.whole_query_property_links:
+            self.driver.get(property_link)
             time.sleep(2)
 
-            self.properties_dictionary = {}
-
-            self.property_id = 'property_' + str(self.whole_query_property_links.index(link) + 1) # generates & stores property IDs
-            self.property_number += 1
+            self.generate_property_ids()
             self.properties_dictionary['ID'] = self.property_id
-
-            self.uuid4 = str(uuid.uuid4()) # generates & stores property UUIDs
             self.properties_dictionary['UUID'] = self.uuid4
 
-            self.property_image_link_div = self.driver.find_element(By.XPATH, value='//div[@class="mtyLjuu2GD7KK4pvhCkS5"]') # extracts & stores property floorplan image link
-            self.property_image_link_div_a = self.property_image_link_div.find_element(By.TAG_NAME, 'a')
-            self.property_image_link = self.property_image_link_div_a.get_attribute('href')
+            self.get_floorplan_image_link()
             self.properties_dictionary['Image'] = self.property_image_link
-
-            self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text # finds & stores property price
-            self.properties_dictionary['Price'] = self.property_price
-
-            self.property_address = self.driver.find_element(By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text # finds & stores property address
-            self.properties_dictionary['Address'] = self.property_address
-
-            self.property_type_div = self.driver.find_element(By.XPATH, value='//div[@class="_3OGW_s5TH6aUqi4uHum5Gy"]') # finds & stores property type
-            self.property_type = self.property_type_div.find_element(By.XPATH, value='.//p').text
             
-            # fixes problem caused by unaccuracies in the website
-            if self.property_type == '3,234,766 sq. ft.':
-                self.property_type = 'Land'
-            elif self.property_type == 'Ask agent':
-                self.property_type = 'Undefined'
+            self.get_property_metrics()
+            self.properties_dictionary['Price'] = self.property_price
+            self.properties_dictionary['Address'] = self.property_address
             self.properties_dictionary['Type'] = self.property_type
-
-            if self.property_type == 'Land' or 'Undefined':
-                self.properties_dictionary['Bedrooms'] = 'NONE'
-            else: 
-                self.property_bedrooms_div = self.driver.find_element(By.XPATH, value='//div[2][@class="_3gIoc-NFXILAOZEaEjJi1n"]') # finds & stores bedroom number
-                self.property_bedrooms = self.property_bedrooms_div.find_element(By.XPATH, value='.//p').text
-                self.properties_dictionary['Bedrooms'] = self.property_bedrooms
-
-            # clicks on 'read more' button in description
-            try: 
-                self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value="button._33m7y0JkS3Q_2tRLrMPB9U")
-                self.move_to_next_page.click()
-            except:
-                pass # passes if there is no read more button
-
-            self.property_description = self.driver.find_element(By.XPATH, value='//div[@class="OD0O7FWw1TjbTD4sdRi1_"]').text # finds & stores property description
+            self.properties_dictionary['Bedrooms'] = self.property_bedrooms
+            
+            self.get_property_description()
             self.properties_dictionary['Description'] = self.property_description
 
             self.properties_dict_list.append(self.properties_dictionary) # appends dictionary to properties dictionaries list
             time.sleep(2)
 
-        # prints created list of properties dictionaries
-        print(self.properties_dict_list)
+            # prints created list of properties dictionaries
+            print(f'\n{self.properties_dict_list}')
+
+    #######################################################
+    ###### download images, store data in .json file ######
+    #######################################################
 
     def download_images(self):
         self.image_id = 0
