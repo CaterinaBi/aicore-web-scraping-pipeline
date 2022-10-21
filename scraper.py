@@ -28,7 +28,7 @@ class Scraper:
         # creates list to store property dictionaries
         self.properties_dict_list = []
             
-        self.collection_terminated = False
+        # self.collection_terminated = False
 
     # bypasses cookies
     def bypass_cookies(self):
@@ -45,7 +45,7 @@ class Scraper:
 
     # creates crawler   
     def get_all_property_links(self):
-        self.page += 1
+        self.page += 1 # needs to stay here at all times
         # code only extracts from pages 1-2
         #if self.page == 3: # delete if-statement to extract from all pages
             #self.collection_terminated = True

@@ -52,10 +52,24 @@ if __name__ == '__main__':
 
 `if __name__ == '__main__':` assigns the scraper to the `bot` variable. First, the scraper bypasses cookies - `try-except` is used in the `bypass_cookies` to make sure the programme doesn't crash in the absence of cookies to accept. The scraper then performs all actions from the methods in `scraper.py`, until all properties in all web pages into consideration have been found. This is done using a while-loop.
 
-The scraper includes a crawler. The first action performed by the scraper after accepting the cookies is indeed that of finding all properties on the page, and then all the links to said properties. These are stored in dedicated lists, and then added to a `global_list` which is extended little with all extracted elements (properties and their links) from all pages. The first property on the property list from each page is always a 'featured property' and is therefore systematically sliced out.
+The scraper includes a crawler. The first action performed by the scraper after accepting the cookies is indeed that of finding all properties on the page, and then all the links to said properties. These are stored in dedicated lists, and then added to a `all_properties_links` which is extended with all extracted elements (properties and their links) from all pages. The first property on the property list from each page is always a 'featured property' and is therefore systematically sliced out.
 
 Once a page has been scraped, the scraper moves to the bottom of it and clicks on the 'next page' botton. `try-except` syntax is used to ensure that the programme doesn't crash when there is no more 'next page' button.
 
-Meaningful messages are printed throughout to make the user experience more pleasurable.
+Meaningful messages are printed throughout at this stage.
 
 ## Milestone 4: Retreive data from details page
+
+In this milestone, I created a method called `extract_the_data_into_a_dictionary()` which loops through the `all_properties_links` list and creates dictionaries that map pre-determined keys (labels) to values extracted from a link. The dictionaries are then systematically appended to the end of the `properties_dict_list` list. The dictionaries have the structure thet follows:
+
+```python
+properties_dictionary = {'ID': , 'UUID': , 'Image': , 'Price': , 'Address': , 'Type': , 'Bedrooms':, 'Description': }
+```
+
+ The value associated to the 'Image' key here is the url associated to the property floorplan. The actual image is downloaded later in the class using a `download_image()` method that loops though the dictionaries for each property, names the images as 'image_+imagenumber+.jpg', and stores them locally.
+
+At this point, the code still contains numerous prints and unnecessary comments, which will be stripped from it at refactoring, i.e., in the next milestone. Nonetheless, the code works in a satisfactory way and all required tasks are performed correctly, including the creation of a .json file to store all data retrieved by the scraper.
+
+![Image showing the scraper in action](images/working_scraper.png)
+
+The most important takeaways of this milestone where the correct implementation of while loops (ouch!) and choice of relative xpaths to extract content from the page. I also learnt how to download images locally and to create a .json file from a list of dictionaries using the `json.dump()` method to store data locally.
