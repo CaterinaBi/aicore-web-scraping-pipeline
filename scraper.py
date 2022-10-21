@@ -8,6 +8,7 @@ import time
 from time import sleep
 import uuid
 # from google.colab import files
+import requests
 
 class Scraper:
     def __init__(self, url: str = 'https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E274&insId=1&radius=10.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false'):
@@ -46,26 +47,26 @@ class Scraper:
     def get_all_property_links(self):
         self.page += 1
         # code only extracts from pages 1-2
-        if self.page == 3: # delete if-statement to extract from all pages
-            self.collection_terminated = True
-            self.extract_the_data_into_a_dictionary()
-        else:
-            print(f'\nWe\'re on page {self.page} now.')
-            # creates empty list of links to all properties
-            self.all_properties_links_list = []
-            # creates list of links to all properties
-            self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-priceLink")
-            self.all_properties_links_list = [elem.get_attribute('href') for elem in self.elems]
-            time.sleep(2)
-            print(f'We found {len(self.all_properties_links_list)} links to properties in page {self.page} before slicing.\n')
-            # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
-            self.all_properties_links_list = self.all_properties_links_list[1:]
-            print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
+        #if self.page == 3: # delete if-statement to extract from all pages
+            #self.collection_terminated = True
+            #self.extract_the_data_into_a_dictionary()
+        #elif self.collection_terminated == False:
+        print(f'\nWe\'re on page {self.page} now.')
+        # creates empty list of links to all properties
+        self.all_properties_links_list = []
+        # creates list of links to all properties
+        self.elems = self.driver.find_elements(By.CSS_SELECTOR, value=".propertyCard-priceLink")
+        self.all_properties_links_list = [elem.get_attribute('href') for elem in self.elems]
+        time.sleep(2)
+        print(f'We found {len(self.all_properties_links_list)} links to properties in page {self.page} before slicing.\n')
+        # slashes the list to exclude the first property (featured property, repeated later in the HTML code)
+        self.all_properties_links_list = self.all_properties_links_list[1:]
+        print(f'After slicing, there are {len(self.all_properties_links_list)} links to properties in this page:')
 
     # creates a list of property links from all scraped pages
     def create_global_list(self):
         self.whole_query_property_links.extend(self.all_properties_links_list)
-        # print(f'The global list of property links now includes {len(self.whole_query_property_links)} links.')
+        print(f'The global list of property links now includes {len(self.whole_query_property_links)} links.')
 
     # scrolls to the bottom of the page
     def scroll_to_bottom(self):
@@ -75,20 +76,18 @@ class Scraper:
 
     # clicks on the 'next page' button
     def move_to_the_next_page(self):
-        # self.link_collection_terminated = bool
         try:
             # gets the next page button and clicks it
             self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value=".pagination-button.pagination-direction.pagination-direction--next")
             self.move_to_next_page.click()
             time.sleep(2)
         except:
-            pass # passes if there is no next page button
+            pass
             print(f'\nThere\'s no \'next page\' button, looks like we reached an impasse! I think we\'re done.')
             time.sleep(2)
             print(f'\nThe list of property links that I have extracted is as follows:\n')
             print(f'{self.whole_query_property_links}\n')
             time.sleep(2)
-
             self.collection_terminated = True
 
     # create individual methods at refactoring, then simpler dictionary method
@@ -178,6 +177,17 @@ class Scraper:
         print(self.properties_dict_list)
         # self.data_collection_terminated = True # sets the task as completed
 
+    def download_images(self):
+        self.image_id = 0
+        for self.dict in self.properties_dict_list:
+            self.image_id += 1
+            self.image_name = 'image_' + str(self.image_id) + '.jpg'
+            self.image_url = self.dict['Image']
+
+            # downloads image as .jpg file
+            img_data = requests.get(self.image_url).content
+            with open(self.image_name, 'wb') as handler:       
+                handler.write(img_data)
     
     def save_data_to_json(self):
         with open("data.json", "w") as outfile:
