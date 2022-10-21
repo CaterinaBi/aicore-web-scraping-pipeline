@@ -13,7 +13,17 @@ import uuid
 
 class Scraper:
     def __init__(self, url: str = 'https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E274&insId=1&radius=10.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false'):
-        print('\n---Program initialised.')
+        '''
+        This class is used to scrape a website and extract text and images.
+        The website chosen for the task is RightMove, therefore it will scrap property details.
+
+        Attributes:
+            driver: chrome web driver
+            page (int): the number of the currently scraped page.
+            property number (int): the number of the current property.
+            whole_query_property_link (list): list of links to all properties.
+            properties_dict_list (list): list of dictionaries that store data from all properties.
+        '''
         self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
         time.sleep(2)
@@ -21,9 +31,10 @@ class Scraper:
         self.page = 0
         self.property_number = 0
 
-        self.whole_query_property_list = [] # properties from all pages
         self.whole_query_property_links = [] # links to all properties from all pages
         self.properties_dict_list = [] # store property dictionaries
+
+        print('\n---Program initialised.')
 
     def __bypass_cookies(self):
         try:
@@ -67,7 +78,7 @@ class Scraper:
     ###### extract all property details ######
     ##########################################
 
-    def __generate_property_ids(self):
+    def generate_property_ids(self):
         self.property_number += 1
         self.property_id = 'property_' + str(self.property_number) # generates & stores property IDs
         self.uuid4 = str(uuid.uuid4()) # generates & stores property UUIDs
@@ -108,7 +119,7 @@ class Scraper:
     ###### stores data into list of dictionaries ######
     ###################################################
 
-    def __extract_the_data_into_a_dictionary(self):
+    def extract_the_data_into_a_dictionary(self):
         self.properties_dictionary = {}
 
         for property_link in self.whole_query_property_links:
@@ -141,7 +152,7 @@ class Scraper:
     ###### download images, store data in .json file ######
     #######################################################
 
-    def __download_images(self):
+    def download_images(self):
         self.image_id = 0
         for self.dict in self.properties_dict_list:
             self.image_id += 1
