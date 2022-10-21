@@ -1,7 +1,4 @@
 from scraper import Scraper
-from selenium import webdriver
-import time
-import json
 
 if __name__ == '__main__':
     bot = Scraper()
