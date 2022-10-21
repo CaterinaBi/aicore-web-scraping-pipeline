@@ -26,6 +26,8 @@ class Scraper:
         self.whole_query_property_links = []
         # creates list to store property dictionaries
         self.properties_dict_list = []
+            
+        self.collection_terminated = False
 
     # bypasses cookies
     def bypass_cookies(self):
@@ -43,8 +45,9 @@ class Scraper:
     # creates crawler   
     def get_all_property_links(self):
         self.page += 1
-        # delete if-statement to extract from all pages
-        if self.page == 2:
+        # code only extracts from pages 1-2
+        if self.page == 3: # delete if-statement to extract from all pages
+            self.collection_terminated = True
             self.extract_the_data_into_a_dictionary()
         else:
             print(f'\nWe\'re on page {self.page} now.')
@@ -72,14 +75,12 @@ class Scraper:
 
     # clicks on the 'next page' button
     def move_to_the_next_page(self):
-        self.link_collection_terminated = bool
+        # self.link_collection_terminated = bool
         try:
             # gets the next page button and clicks it
             self.move_to_next_page = self.driver.find_element(By.CSS_SELECTOR, value=".pagination-button.pagination-direction.pagination-direction--next")
             self.move_to_next_page.click()
             time.sleep(2)
-            
-            self.link_collection_terminated = False
         except:
             pass # passes if there is no next page button
             print(f'\nThere\'s no \'next page\' button, looks like we reached an impasse! I think we\'re done.')
@@ -88,7 +89,7 @@ class Scraper:
             print(f'{self.whole_query_property_links}\n')
             time.sleep(2)
 
-            # self.link_collection_terminated = True
+            self.collection_terminated = True
 
     # create individual methods at refactoring, then simpler dictionary method
     def extract_the_data_into_a_dictionary(self):
@@ -101,6 +102,9 @@ class Scraper:
             self.driver.get(self.individual_link_to_scrape)
             print(f'\n{link}')
             time.sleep(2)
+
+            # sets collection terminated as False by default
+            #self.link_collection_terminated = False
 
             self.properties_dictionary = {}
 

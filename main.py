@@ -6,7 +6,7 @@ if __name__ == '__main__':
     bot = Scraper()
     bot.bypass_cookies()
 
-    while True:
+    while bot.collection_terminated == False:
         bot.get_all_property_links()
         bot.create_global_list()
         bot.scroll_to_bottom()
