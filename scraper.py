@@ -89,11 +89,12 @@ class Scraper:
         self.property_id = 'property_' + str(self.property_number)
         self.uuid4 = str(uuid.uuid4())
 
-    def get_floorplan_image_link(self):
-        '''A method that extracts the href for the properties floorplan'''
-        self.property_image_link_div = self.driver.find_element(By.XPATH, value='//div[@class="mtyLjuu2GD7KK4pvhCkS5"]') # extracts & stores property floorplan image link
-        self.property_image_link_div_a = self.property_image_link_div.find_element(By.TAG_NAME, 'a')
-        self.property_image_link = self.property_image_link_div_a.get_attribute('href')
+    def get_first_image_link(self):
+        '''A method that extracts the link to the properties first image'''
+        self.property_image_link_div = self.driver.find_element(By.XPATH, value='//div[@class="_2TqQt-Hr9MN0c0wH7p7Z5p"]')
+        self.property_image_link_a = self.property_image_link_div.find_element(By.XPATH, value='.//a')
+        self.property_image_link = self.property_image_link_a.get_attribute('href')
+        print(self.property_image_link)
 
     def get_property_metrics(self):
         '''A method that extracts basic property metrics (price, address)'''
@@ -127,7 +128,7 @@ class Scraper:
 
     def extract_the_data_into_a_dictionary(self):
         '''A method that creates dictionaries based on property features,
-        and appends them to a list.'''
+        and appends them to properties_dict_list.'''
         self.properties_dictionary = {}
 
         for property_link in self.whole_query_property_links:
@@ -138,7 +139,7 @@ class Scraper:
             self.properties_dictionary['ID'] = self.property_id
             self.properties_dictionary['UUID'] = self.uuid4
 
-            self.get_floorplan_image_link()
+            self.get_first_image_link()
             self.properties_dictionary['Image'] = self.property_image_link
             
             self.get_property_metrics()
@@ -159,10 +160,11 @@ class Scraper:
     #######################################################
 
     def download_images(self):
-        self.image_id = 0
-        for self.dict in self.properties_dict_list:
-            self.image_id += 1
-            self.image_name = 'image_' + str(self.image_id) + '.png'
+        '''A method that utilises the links stored under the 'Image' key of properties_dict_list
+        and downloads the corresponding images'''
+        for index, self.dict in enumerate(self.properties_dict_list):
+            index += 1
+            self.image_name = 'image_' + str(index) + '.jpeg'
             self.image_url = self.dict['Image']
 
             img_data = requests.get(self.image_url).content # downloads image as .png file
@@ -170,5 +172,6 @@ class Scraper:
                 handler.write(img_data)
     
     def save_data_to_json(self):
+        '''A method that converts properties_dict_list into a .json file'''
         with open("data.json", "w") as outfile:
-            json.dump(self.properties_dict_list, outfile)
+            json.dumps(self.properties_dict_list, outfile)
