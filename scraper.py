@@ -92,8 +92,8 @@ class Scraper:
     def get_first_image_link(self):
         '''A method that extracts the link to the properties first image'''
         self.property_image_link_div = self.driver.find_element(By.XPATH, value='//div[@class="_2TqQt-Hr9MN0c0wH7p7Z5p"]')
-        self.property_image_link_a = self.property_image_link_div.find_element(By.XPATH, value='.//a')
-        self.property_image_link = self.property_image_link_a.get_attribute('href')
+        self.property_image_link_a = self.property_image_link_div.find_element(By.XPATH, value='.//meta')
+        self.property_image_link = self.property_image_link_a.get_attribute('content')
 
         print(self.property_image_link)
 
@@ -171,10 +171,10 @@ class Scraper:
             self.image_name = 'image_' + str(index) + '.jpeg'
             self.image_url = self.dict['Image']
 
-            img_data = requests.get(self.image_url).content # downloads image as .png file
+            img_data = requests.get(self.image_url) # downloads image as .png file
             # print(img_data)
             with open(self.image_name, 'wb') as handler:       
-                handler.write(img_data)
+                handler.write(img_data.content)
     
     def save_data_to_json(self):
         '''A method that converts properties_dict_list into a .json file'''
