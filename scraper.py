@@ -130,11 +130,12 @@ class Scraper:
     def extract_the_data_into_a_dictionary(self):
         '''A method that creates dictionaries based on property features,
         and appends them to properties_dict_list.'''
-        self.properties_dictionary = {}
 
         for property_link in self.whole_query_property_links:
             self.driver.get(property_link)
             time.sleep(2)
+            
+            self.properties_dictionary = {}
 
             self.generate_property_ids()
             self.properties_dictionary['ID'] = self.property_id
@@ -156,6 +157,8 @@ class Scraper:
             self.properties_dict_list.append(self.properties_dictionary)
             time.sleep(2)
 
+        print(self.properties_dict_list)
+
     #######################################################
     ###### download images, store data in .json file ######
     #######################################################
@@ -169,11 +172,11 @@ class Scraper:
             self.image_url = self.dict['Image']
 
             img_data = requests.get(self.image_url).content # downloads image as .png file
-            print(img_data)
+            # print(img_data)
             with open(self.image_name, 'wb') as handler:       
                 handler.write(img_data)
     
     def save_data_to_json(self):
         '''A method that converts properties_dict_list into a .json file'''
-        with open("properties_data.json", "w") as outfile:
-            json.dump(self.properties_dict_list, outfile)
+        with open("properties_data.json", "w", encoding='utf-8') as output:
+                json.dump(self.properties_dict_list, output, ensure_ascii=False, indent=4)
