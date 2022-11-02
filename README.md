@@ -57,7 +57,7 @@ The scraper includes a crawler. The first action performed by the scraper after 
 Once a page has been scraped, the scraper moves to the bottom of it and clicks on the 'next page' botton. `try-except` syntax is used to ensure that the programme doesn't crash when there is no more 'next page' button. The condition in the while-loop ensures that the code is only run and tested only on the first two pages for now.
 
 Meaningful messages are printed throughout at this stage. Additionally, the program utilises numerous 
-`time.sleep(2)` methods to make sure the website does not recognise it as a bot and block our IP address. All methods are set as private because they are only accessed within the Scraper() class.
+`time.sleep(2)` methods to make sure the website does not recognise it as a bot and blocks our IP address.
 ## Milestone 4: Retreive data from details page
 
 In this milestone, I created a method called `extract_the_data_into_a_dictionary()` which loops through the `all_properties_links` list and creates dictionaries that map pre-determined keys (labels) to values extracted from a link. The dictionaries are then systematically appended to the end of the `properties_dict_list` list. The dictionaries have the structure thet follows:

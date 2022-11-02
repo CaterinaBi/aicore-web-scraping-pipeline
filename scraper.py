@@ -38,7 +38,7 @@ class Scraper:
 
         self.date = str(date.today())
         self.hour = datetime.now()
-        self.current_time = str(self.hour.strftime("%H%M"))
+        self.current_time = str(self.hour.strftime("%H:%M"))
 
         print('\n---Program initialised.')
 
@@ -176,20 +176,28 @@ class Scraper:
         '''A method that utilises the links stored under the 'Image' key of properties_dict_list
         and downloads the corresponding images'''
 
+        self.destination_folder = 'raw_data/right_move_scraper/scraped_images'
+
+        if not os.path.exists(self.destination_folder):
+            os.makedirs(self.destination_folder)
+
         for index, self.dict in enumerate(self.properties_dict_list):
             index += 1
             
-            self.image_name = f'{self.date}_{self.hour}_image_{str(index)}.jpeg'
+            self.image_name = f'{self.date}_{self.current_time}_image_{str(index)}.jpeg'
+            self.image_path = os.path.join(self.destination_folder, self.image_name)
             self.image_url = self.dict['Image']
 
             img_data = requests.get(self.image_url) # downloads image as .png file
             # print(img_data)
-            with open(self.image_name, 'wb') as handler:       
+            with open(self.image_path, 'wb') as handler:       
                 handler.write(img_data.content)
     
     def save_data_to_json(self):
         '''A method that converts properties_dict_list into a .json file and stores it into dedicated directories'''
-        filename = "/raw_data/right_move_scraper/data.json"
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        with open(filename, "w", encoding='utf-8') as output:
+        self.destination_folder = "/raw_data/right_move_scraper"
+        self.filename = 'data.json'
+        self.file_path = os.path.join(self.destination_folder, self.filename)
+
+        with open(self.file_path, "w", encoding='utf-8') as output:
                 json.dump(self.properties_dict_list, output, ensure_ascii=False, indent=4)
