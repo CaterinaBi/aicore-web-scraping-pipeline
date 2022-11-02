@@ -196,9 +196,13 @@ class Scraper:
     
     def save_data_to_json(self):
         '''A method that converts properties_dict_list into a .json file and stores it into dedicated directories'''
-        self.destination_folder = '/raw_data/right_move_scraper'
-        self.filename = 'data.json'
-        self.file_path = os.path.join(self.destination_folder, self.filename)
+        self.destination_folder = 'raw_data/right_move_scraper/data'
 
-        with open(self.file_path, "w", encoding='utf-8') as output:
+        if not os.path.exists(self.destination_folder):
+            os.makedirs(self.destination_folder)
+
+        self.file_name = 'data.json'
+        self.folder_path = os.path.join(self.destination_folder, self.file_name)
+        
+        with open(self.folder_path, 'w', encoding='utf-8') as output:
             json.dump(self.properties_dict_list, output, ensure_ascii=False, indent=4)
