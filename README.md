@@ -63,13 +63,15 @@ Meaningful messages are printed throughout at this stage. Additionally, the prog
 In this milestone, I created a method called `extract_the_data_into_a_dictionary()` which loops through the `all_properties_links` list and creates dictionaries that map pre-determined keys (labels) to values extracted from a link. The dictionaries are then systematically appended to the end of the `properties_dict_list` list. The dictionaries have the structure thet follows:
 
 ```python
-properties_dictionary = {'ID': , 'UUID': , 'Image': , 'Price': , 'Address': , 'Type': , 'Bedrooms':, 'Description': }
+properties_dictionary = {'ID': , 'UUID': , 'Image': , 'Price': , 'Address': , 'Type': , 'Description': , 'Date scraped': , 'Time scraped': }
 ```
 
- The value associated to the 'Image' key here is the url associated to the property floorplan. The actual image is downloaded later in the class using a `download_image()` method that loops though the dictionaries for each property, names the images as 'image_+imagenumber+.jpg', and stores them locally.
+ The value associated to the 'Image' key here is the url associated to the property floorplan. The actual image is downloaded later in the class using a `download_image()` method that loops though the dictionaries for each property, names the images as 'date_time_image_imagenumber.jpg', and stores them locally.
 
 At this point, the code still contains numerous prints and unnecessary comments, which will be stripped from it at refactoring, i.e., in the next milestone. Nonetheless, the code works in a satisfactory way and all required tasks are performed correctly, including the creation of a .json file to store all data retrieved by the scraper.
 
 ![Image showing the scraper in action](images/working_scraper.png)
 
 The most important takeaways of this milestone where the correct implementation of while loops (ouch!) and choice of relative xpaths to extract content from the page. I also learnt how to download images locally and to create a .json file from a list of dictionaries using the `json.dump()` method to store data locally.
+
+## Milestone 5

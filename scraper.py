@@ -6,8 +6,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 import time
 from time import sleep
+from datetime import date, datetime
 
 import json
+import os
 import requests
 import uuid
 
@@ -33,6 +35,10 @@ class Scraper:
 
         self.whole_query_property_links = []
         self.properties_dict_list = []
+
+        self.date = str(date.today())
+        self.hour = datetime.now()
+        self.current_time = str(self.hour.strftime("%H%M"))
 
         print('\n---Program initialised.')
 
@@ -154,6 +160,9 @@ class Scraper:
             self.get_property_description()
             self.properties_dictionary['Description'] = self.property_description
 
+            self.properties_dictionary['Date scraped'] = self.date
+            self.properties_dictionary['Time scraped'] = self.current_time
+
             self.properties_dict_list.append(self.properties_dictionary)
             time.sleep(2)
 
@@ -162,13 +171,15 @@ class Scraper:
     #######################################################
     ###### download images, store data in .json file ######
     #######################################################
-
+    
     def download_images(self):
         '''A method that utilises the links stored under the 'Image' key of properties_dict_list
         and downloads the corresponding images'''
+
         for index, self.dict in enumerate(self.properties_dict_list):
             index += 1
-            self.image_name = 'image_' + str(index) + '.jpeg'
+            
+            self.image_name = f'{self.date}_{self.hour}_image_{str(index)}.jpeg'
             self.image_url = self.dict['Image']
 
             img_data = requests.get(self.image_url) # downloads image as .png file
@@ -177,6 +188,8 @@ class Scraper:
                 handler.write(img_data.content)
     
     def save_data_to_json(self):
-        '''A method that converts properties_dict_list into a .json file'''
-        with open("properties_data.json", "w", encoding='utf-8') as output:
+        '''A method that converts properties_dict_list into a .json file and stores it into dedicated directories'''
+        filename = "/raw_data/right_move_scraper/data.json"
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        with open(filename, "w", encoding='utf-8') as output:
                 json.dump(self.properties_dict_list, output, ensure_ascii=False, indent=4)
