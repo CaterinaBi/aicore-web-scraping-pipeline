@@ -68,10 +68,44 @@ properties_dictionary = {'ID': , 'UUID': , 'Image': , 'Price': , 'Address': , 'T
 
  The value associated to the 'Image' key here is the url associated to the property floorplan. The actual image is downloaded later in the class using a `download_image()` method that loops though the dictionaries for each property, names the images as 'date_time_image_imagenumber.jpg', and stores them locally.
 
-At this point, the code still contains numerous prints and unnecessary comments, which will be stripped from it at refactoring, i.e., in the next milestone. Nonetheless, the code works in a satisfactory way and all required tasks are performed correctly, including the creation of a .json file to store all data retrieved by the scraper.
+At this point, the code still contains numerous prints and unnecessary comments, which will be stripped from it at refactoring, i.e., in the next milestone. Nonetheless, the code works in a satisfactory way and all required tasks are performed correctly, including the creation of a .json file to store all data retrieved by the scraper, whose entries look as follows:
+
+```python
+    {
+        "ID": "property_2",
+        "UUID": "f39dabfa-a164-499c-8ee8-c7dd2a54571f",
+        "Image": "https://media.rightmove.co.uk/35k/34529/126708074/34529_CAM210328_IMG_00_0000.jpeg",
+        "Price": "£6,500,000",
+        "Address": "Adams Road, Cambridge",
+        "Type": "Detached",
+        "Description": "Property description\nA magnificent Victorian house with beautifully presented accommodation, set in stunning landscaped gardens, in an idyllic west city location.\n\nCambridge City Centre 1 mile, Mainline Railway Station 2 miles (Liverpool Street 70 minutes and King's Cross 49 minutes), M11 (Junction 13) 2.5 miles (distances and times are approximate).\n\nDating from 1899, No 7 Adams Road is a truly wonderful example of the late Victorian era and most imposing from its rear elevation, with charming reception rooms, original features still intact and a delightful aspect over the gardens to the south. Constructed of mellow red brick elevations with pretty tile hanging to the first floor under a tiled roof, of particular note is the superb first floor Library with its barrelled ceiling.\nMore recently the current owners have sympathetically extended and renovated the property under the direction of NRAP, a leading Cambridge practice to ensure the retention of many of the original period features including panelling, window seats and cornicing. Merging seamlessly with the original building, the new extension incorporates a large family kitchen/breakfast room with handmade units by Chalon of London, a splendid conservatory built by Vale Garden Houses leading through to the spa/gym with bespoke glass shower and sauna enclosures and an Italian spa designed by Tecu with Luna stone tiling. A new luxurious principal bedroom occupies the entirety of the first floor of the extension and completes this work.\n\n\nAdams Road is widely regarded as one of the best addresses in the city and is characterised by substantial houses in large gardens. Situated less than a mile west of the heart of the\nhistoric centre, the property occupies an idyllic position close to many of the College and University Departments and their playing fields, including St John's College School and King's College School which are just a short walk away in neighbouring Grange Road and West Road respectively. Cambridge also offers a wide range of educational and cultural amenities and is not only world renowned for its academic achievements, but also has become an important centre for the ‘high tech’ and ‘bio tech’ industries with the University Research and Development Laboratories and the internationally renowned Cambridge Science Park. Addenbrooke’s Hospital and the new Cambridge Biomedical Campus, planned to be one of the largest centres of health, science and medical research in the world, is within about 1.5 miles to the east. London commuters are well served with a mainline railway station about 2 miles away providing services to King’s Cross and Liverpool Street in about 52 and 67 minutes respectively and the M11 (junction 11) is about 2.5 miles away providing access to Stansted Airport and the M25.\nBrochures\nParticulars\nShow less",
+        "Date scraped": "2022-11-02",
+        "Time scraped": "11:21"
+    }
+```
+
+Both the scraped images and the .json file are stored in a dedicated local directory called `raw_data`.
 
 ![Image showing the scraper in action](images/working_scraper.png)
 
 The most important takeaways of this milestone where the correct implementation of while loops (ouch!) and choice of relative xpaths to extract content from the page. I also learnt how to download images locally and to create a .json file from a list of dictionaries using the `json.dump()` method to store data locally.
 
 ## Milestone 5
+
+The first part of milestone 5 was refactoring, i.e., a first scrutinisation of the scraper code. Accordingly:
+
+- all unnecessary comments were removed;
+- docstrings were added to all functions;
+- method and variable names were changed when necessary to make them transparent;
+- all code repetitions were discarded;
+- longer methods were broken into smaller ones that only perform one task. Notably, the `extract_the_data_into_a_dictionary()` method now only creates the dictionary, without doing any scraping. The scraping part is now left to dedicated methods, nemely:
+
+```python3
+generate_property_ids() # id based on property number and unique uuid4
+get_first_image_link()
+get_property_metrics() # price and address
+get_property_type()
+.get_property_description()
+```
+- imports and from statements are in consistent alphabetical order;
+- there are no nested loops within the code.

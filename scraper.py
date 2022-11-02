@@ -25,6 +25,8 @@ class Scraper:
             property number (int): the number of the current property.
             whole_query_property_link (list): list of links to all properties.
             properties_dict_list (list): list of dictionaries that store data from all properties.
+            date (str): current date
+            hour (str): current time
         '''
         self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
@@ -104,13 +106,13 @@ class Scraper:
         print(self.property_image_link)
 
     def get_property_metrics(self):
-        '''A method that extracts basic property metrics (price, address)'''
-        self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text # finds & stores property price
-        self.property_address = self.driver.find_element(By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text # finds & stores property address
+        '''A method that extracts basic property metrics (price, address, bedrooms)'''
+        self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text # finds property price
+        self.property_address = self.driver.find_element(By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text # finds property address
 
     def get_property_type(self):
         '''A method that extracts the property type'''
-        self.property_type_div = self.driver.find_element(By.XPATH, value='//div[@class="_3OGW_s5TH6aUqi4uHum5Gy"]') # finds & stores property type
+        self.property_type_div = self.driver.find_element(By.XPATH, value='//div[@class="_3OGW_s5TH6aUqi4uHum5Gy"]') # finds property type
         self.property_type = self.property_type_div.find_element(By.XPATH, value='.//p').text
             
         # fixes problems caused by type unaccuracies in the website
@@ -174,7 +176,7 @@ class Scraper:
     
     def download_images(self):
         '''A method that utilises the links stored under the 'Image' key of properties_dict_list
-        and downloads the corresponding images'''
+        and downloads the corresponding images into local directory'''
 
         self.destination_folder = 'raw_data/right_move_scraper/scraped_images'
 
@@ -195,7 +197,7 @@ class Scraper:
     
     def save_data_to_json(self):
         '''A method that converts properties_dict_list into a .json file and stores it into dedicated directories'''
-        self.destination_folder = "/raw_data/right_move_scraper"
+        self.destination_folder = '/raw_data/right_move_scraper'
         self.filename = 'data.json'
         self.file_path = os.path.join(self.destination_folder, self.filename)
 
