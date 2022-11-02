@@ -1,4 +1,6 @@
-from scraper import Scraper
+from project.scraper import Scraper
 import unittest
 
-class ScaperTestCase(unittest.TestCase):
+class ScraperTestCase(unittest.TestCase):
+    pass
+
