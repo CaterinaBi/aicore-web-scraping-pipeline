@@ -189,8 +189,7 @@ class Scraper:
             self.image_path = os.path.join(self.destination_folder, self.image_name)
             self.image_url = self.dict['Image']
 
-            img_data = requests.get(self.image_url) # downloads image as .png file
-            # print(img_data)
+            img_data = requests.get(self.image_url)
             with open(self.image_path, 'wb') as handler:       
                 handler.write(img_data.content)
     

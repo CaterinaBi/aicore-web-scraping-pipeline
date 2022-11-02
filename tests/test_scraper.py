@@ -3,4 +3,3 @@ import unittest
 
 class ScraperTestCase(unittest.TestCase):
     pass
-
