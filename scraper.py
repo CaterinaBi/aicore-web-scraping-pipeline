@@ -106,7 +106,7 @@ class Scraper:
         print(self.property_image_link)
 
     def get_property_metrics(self):
-        '''A method that extracts basic property metrics (price, address, bedrooms)'''
+        '''A method that extracts basic property metrics (price, address)'''
         self.property_price = self.driver.find_element(By.XPATH, '//div[@class="_1gfnqJ3Vtd1z40MlC0MzXu"]').text # finds property price
         self.property_address = self.driver.find_element(By.XPATH, value='//div[@class="h3U6cGyEUf76tvCpYisik"]').text # finds property address
 
@@ -177,7 +177,6 @@ class Scraper:
     def download_images(self):
         '''A method that utilises the links stored under the 'Image' key of properties_dict_list
         and downloads the corresponding images into local directory'''
-
         self.destination_folder = 'raw_data/right_move_scraper/scraped_images'
 
         if not os.path.exists(self.destination_folder):
@@ -202,4 +201,4 @@ class Scraper:
         self.file_path = os.path.join(self.destination_folder, self.filename)
 
         with open(self.file_path, "w", encoding='utf-8') as output:
-                json.dump(self.properties_dict_list, output, ensure_ascii=False, indent=4)
+            json.dump(self.properties_dict_list, output, ensure_ascii=False, indent=4)
