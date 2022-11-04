@@ -1,11 +1,34 @@
 from project.scraper import Scraper
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import unittest
 
 class ScraperTestCase(unittest.TestCase):
+    def setUp(self):
+        '''Opens the website in headless mode'''
+        self.options = Options()
+        self.options.add_argument("--disable-gpu")
+        self.options.add_argument("--disable-extensions")
+        self.options.add_argument("--disable-infobars")
+        self.options.add_argument('--window-size=1920,1080')
+        self.options.add_argument("--disable-notifications")
+        self.options.add_argument('--headless')
+        self.options.add_argument('--no-sandbox')
+        self.options.add_argument('--disable-dev-shm-usage')
+        self.pl = Scraper(driver=webdriver.Chrome(options=self.options))
+
     bot = Scraper(url='https://www.rightmove.co.uk/property-for-sale/Newmarket.html') # tests the scraper on properties for sale in Newmarket
 
     def test_bypass_cookies(self):
-        pass
+        self.actual = Scraper.bypass_cookies()
+        try:
+            self.expected1 = '---Cookies accepted'
+            self.assertEqual(self.actual, self.expected1)
+            print('---Accept cookies button correctly used')
+        except:
+            self.expected2 = '---No cookies to accept'
+            self.assertEqual(self.actual, self.expected2)
+            print('---No accept cookies button found')
 
     def test_get_all_property_links(self):
         pass
