@@ -174,23 +174,21 @@ class Scraper:
     ###### download images, store data in .json file ######
     #######################################################
     
-    def download_images(self):
+    def download_images(self, destination_folder='raw_data/right_move_scraper/scraped_images'):
         '''A method that utilises the links stored under the 'Image' key of properties_dict_list
         and downloads the corresponding images into local directory'''
-        self.destination_folder = 'raw_data/right_move_scraper/scraped_images'
+        if not os.path.exists(destination_folder):
+            os.makedirs(destination_folder)
 
-        if not os.path.exists(self.destination_folder):
-            os.makedirs(self.destination_folder)
-
-        for index, self.dict in enumerate(self.properties_dict_list):
+        for index, dict in enumerate(self.properties_dict_list):
             index += 1
             
-            self.image_name = f'{self.date}_{self.current_time}_image_{str(index)}.jpeg'
-            self.image_path = os.path.join(self.destination_folder, self.image_name)
-            self.image_url = self.dict['Image']
+            image_name = f'{self.date}_{self.current_time}_image_{str(index)}.jpeg'
+            image_path = os.path.join(destination_folder, image_name)
+            image_url = dict['Image']
 
-            img_data = requests.get(self.image_url)
-            with open(self.image_path, 'wb') as handler:       
+            img_data = requests.get(image_url)
+            with open(image_path, 'wb') as handler:       
                 handler.write(img_data.content)
     
     def save_data_to_json(self):

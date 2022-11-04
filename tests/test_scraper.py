@@ -2,4 +2,9 @@ from project.scraper import Scraper
 import unittest
 
 class ScraperTestCase(unittest.TestCase):
-    pass
+    scraper = Scraper()
+
+    def test_bypass_cookies(self):
+        pass
+
+    
