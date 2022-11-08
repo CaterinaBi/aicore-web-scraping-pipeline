@@ -15,9 +15,7 @@ class ScraperTestCase(unittest.TestCase):
         self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--disable-dev-shm-usage')
-        self.pl = Scraper(driver=webdriver.Chrome(options=self.options))
-
-    bot = Scraper(url='https://www.rightmove.co.uk/property-for-sale/Newmarket.html') # tests the scraper on properties for sale in Newmarket
+        self.scraper = Scraper(driver=webdriver.Chrome(options=self.options))
 
     def test_bypass_cookies(self):
         self.actual = Scraper.bypass_cookies()
@@ -37,7 +35,14 @@ class ScraperTestCase(unittest.TestCase):
         pass
 
     def test_scroll_to_bottom(self):
-        pass
+        '''Tests that the document height page does not change after the first scroll i.e. is already fully loaded.'''
+        self.scraper.driver.get('https://www.rightmove.co.uk/property-for-sale/Newmarket.html') # tests the scraper on properties for sale in Newmarket
+        self.scraper.bypass_cookies()
+        self.scraper.scroll_to_bottom()
+        height_1 = self.scraper.driver.execute_script('return document.body.scrollHeight')
+        self.scraper.scroll_to_bottom()
+        height_2 = self.scraper.driver.execute_script('return document.body.scrollHeight')
+        self.assertAlmostEqual(height_1/1000, height_2/1000, self.place==1)
 
     def test_move_to_the_next_page(self):
         pass
@@ -65,5 +70,3 @@ class ScraperTestCase(unittest.TestCase):
 
     def test_save_data_to_json(self):
         pass
-
-    
