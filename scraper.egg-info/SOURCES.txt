@@ -1,0 +1,14 @@
+LICENSE
+README.md
+setup.py
+project/__init__.py
+project/__main__.py
+project/scraper.py
+scraper.egg-info/PKG-INFO
+scraper.egg-info/SOURCES.txt
+scraper.egg-info/dependency_links.txt
+scraper.egg-info/requires.txt
+scraper.egg-info/top_level.txt
+tests/__init__.py
+tests/__main__.py
+tests/test_scraper.py

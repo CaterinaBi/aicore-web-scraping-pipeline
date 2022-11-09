@@ -1,7 +1,8 @@
-from project.scraper import Scraper
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import unittest
+
+from project.scraper import Scraper
 
 class ScraperTestCase(unittest.TestCase):
     def setUp(self):

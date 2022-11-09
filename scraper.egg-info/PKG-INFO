@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: scraper
+Version: 1.0
+Summary: Package allows you to scrape property data from RightMove
+Home-page: https://github.com/CaterinaBi/aicore-web-scraping-pipeline
+Author: Caterina Bonan
+License: MIT
+License-File: LICENSE

@@ -9,5 +9,5 @@ setup(name='scraper',
         packages=find_packages(),
         install_requires=[
             'selenium',
-            'webdriver_manager',
+            'webdriver_manager'
             ])
