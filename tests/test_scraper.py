@@ -66,6 +66,19 @@ class ScraperTestCase(unittest.TestCase):
             #self.assertEqual(actual, expected2)
             #print('---No next page')
 
+    def test_generate_property_ids(self):
+        '''A method that tests that property ids are correctly generated'''
+        actual = self.scraper.generate_property_ids()
+        actual_type = type(actual)
+        actual_type_1 = type(actual[1])
+        return_tuple = ('property_1', '')
+        return_tuple_type = type(return_tuple)
+        type_elem_1 = type(return_tuple[1])
+
+        self.assertEqual(return_tuple_type, actual_type) # checks that method returns a tuple
+        self.assertEqual(return_tuple[0], actual[0]) # checks that the first element of the tuple is correctly generated
+        self.assertEqual(actual_type_1, type_elem_1) # checks that the generated uuid is a string
+
     def tearDown(self):
         self.scraper.driver.quit()
         del self.scraper
