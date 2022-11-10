@@ -110,19 +110,19 @@ class ScraperTestCase(unittest.TestCase):
 
         #self.assertEqual(expected, actual) # checks that the property type is correctly extracted
 
-    def test_get_property_description(self):
-        '''A method that checks that the description is a string'''
-        self.scraper.bypass_cookies()
-        links = self.scraper.get_all_property_links()
-        link_to_test = links[0] # only tests code on first property
+    #def test_get_property_description(self):
+        #'''A method that checks that the description is a string'''
+        #self.scraper.bypass_cookies()
+        #links = self.scraper.get_all_property_links()
+        #link_to_test = links[0] # only tests code on first property
 
-        self.scraper.driver.get(link_to_test)
-        description = self.scraper.get_property_description()
-        expected_type = str
-        description_length = 12548
+        #self.scraper.driver.get(link_to_test)
+        #description = self.scraper.get_property_description()
+        #expected_type = str
+        #description_length = 12548
 
-        self.assertEqual(type(description), expected_type) # checks that the description is a string
-        self.assertEqual(len(description), description_length) # checks that the description length is as expected
+        #self.assertEqual(type(description), expected_type) # checks that the description is a string
+        #self.assertEqual(len(description), description_length) # checks that the description length is as expected
 
     #def test_extract_the_data_into_a_dictionary(self):
         #'''A method that checks that the dictionary is correctly created'''
