@@ -124,23 +124,25 @@ class ScraperTestCase(unittest.TestCase):
         #self.assertEqual(type(description), expected_type) # checks that the description is a string
         #self.assertEqual(len(description), description_length) # checks that the description length is as expected
 
-    def test_extract_the_data_into_a_dictionary(self):
-        '''A method that checks that the dictionary is correctly created'''
-        self.scraper.bypass_cookies()
-        links = self.scraper.get_all_property_links()
-        link_to_test = links[0] # only tests code on first property
+    #def test_extract_the_data_into_a_dictionary(self):
+        #'''A method that checks that the dictionary is correctly created'''
+        #self.scraper.bypass_cookies()
+        #links = self.scraper.get_all_property_links()
+        #link_to_test = links[0] # only tests code on first property
 
-        self.scraper.driver.get(link_to_test)
-        dictionary_list = self.scraper.extract_the_data_into_a_dictionary()
+        #self.scraper.driver.get(link_to_test)
+        #dictionary_list = self.scraper.extract_the_data_into_a_dictionary()
 
-        for dictionary in dictionary_list:
-            assert dictionary[0] == "ID"
-            assert dictionary[1] == "UUID"
-            assert dictionary[2] == "Image"
-            assert dictionary[3] == "Price"
-            assert dictionary[4] == "Address"
-            assert dictionary[5] == "Type"
-            assert dictionary[6] == "Description"
+        #for dictionary in dictionary_list:
+            #assert dictionary[0] == "ID"
+            #assert dictionary[1] == "UUID"
+            #assert dictionary[2] == "Image"
+            #assert dictionary[3] == "Price"
+            #assert dictionary[4] == "Address"
+            #assert dictionary[5] == "Type"
+            #assert dictionary[6] == "Description"
+
+    
 
     def tearDown(self):
         self.scraper.driver.quit()
