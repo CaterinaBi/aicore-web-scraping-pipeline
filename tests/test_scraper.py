@@ -79,6 +79,23 @@ class ScraperTestCase(unittest.TestCase):
         #self.assertEqual(return_tuple[0], actual[0]) # checks that the first element of the tuple is correctly generated
         #self.assertEqual(actual_type_1, type_elem_1) # checks that the generated uuid is a string
 
+    def test_get_first_image_link(self):
+        self.scraper.bypass_cookies()
+        links = self.scraper.get_all_property_links()
+        link_to_test = links[0]
+
+        self.scraper.driver.get(link_to_test)
+        image_link = self.scraper.get_first_image_link()
+        expected_link = 'https://media.rightmove.co.uk/106k/105848/128269403/105848_100539081819_IMG_00_0000.jpeg'
+
+        self.assertEqual(expected_link, image_link) # checks that the link to the first property is correctly extracted
+
+    # def test_extract_the_data_into_a_dictionary(self):
+        # '''A method that checks that the dictionary is correctly created'''
+        # self.scraper.bypass_cookies()
+        # self.scraper.get_all_property_links()
+        # dictionary = self.scraper.extract_the_data_into_a_dictionary()
+
     def tearDown(self):
         self.scraper.driver.quit()
         del self.scraper
