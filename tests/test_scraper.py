@@ -10,6 +10,7 @@ class ScraperTestCase(unittest.TestCase):
         self.scraper = Scraper()
 
     def test_bypass_cookies(self):
+        '''A method that tests that the accept cookies button is correctly hit when present'''
         actual = self.scraper.bypass_cookies()
 
         try:
@@ -21,8 +22,14 @@ class ScraperTestCase(unittest.TestCase):
             self.assertEqual(actual, expected2)
             print('---No accept cookies button found')
 
-    # def test_get_all_property_links(self):
-        # pass
+    def test_get_all_property_links(self):
+        '''A method that tests that what what is created is indeed a list, and that the original list of
+        properties is correctly sliced to exclude the first property on each page'''
+        self.scraper.bypass_cookies()
+        list = self.scraper.get_all_property_links()
+        list_length = 24
+
+        self.assertEqual(len(list), list_length)
 
     # def test_create_global_list(self):
         # pass
@@ -63,3 +70,7 @@ class ScraperTestCase(unittest.TestCase):
 
     # def test_save_data_to_json(self):
         # pass
+
+    def tearDown(self):
+        self.scraper.driver.quit()
+        del self.scraper
