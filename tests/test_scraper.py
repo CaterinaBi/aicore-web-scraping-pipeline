@@ -26,9 +26,8 @@ class ScraperTestCase(unittest.TestCase):
         #self.scraper.bypass_cookies()
         #property_list = self.scraper.get_all_property_links()
         #list_length = 24
-        #property_list_type = type(property_list)
 
-        #self.assertIs(property_list_type, list) # checks that method returns a list
+        #self.assertIs(type(property_list), list) # checks that method returns a list
         #self.assertEqual(len(property_list), list_length) # checks that the list length is as expected
 
     #def test_create_global_list(self):
@@ -38,9 +37,8 @@ class ScraperTestCase(unittest.TestCase):
         #property_list = self.scraper.get_all_property_links()
         #global_list = self.scraper.create_global_list()
         #list_length = 24
-        #global_list_type = type(global_list)
 
-        #self.assertIs(global_list_type, list) # checks that method returns a list
+        #self.assertIs(type(global_list), list) # checks that method returns a list
         #self.assertEqual(len(global_list), list_length) # checks that the list length is as expected
         #self.assertEqual(global_list, property_list) # checks that property_list is correctly appended
 
@@ -69,15 +67,11 @@ class ScraperTestCase(unittest.TestCase):
     #def test_generate_property_ids(self):
         #'''A method that tests that property ids are correctly generated'''
         #actual = self.scraper.generate_property_ids()
-        #actual_type = type(actual)
-        #actual_type_1 = type(actual[1])
         #return_tuple = ('property_1', '')
-        #return_tuple_type = type(return_tuple)
-        #type_elem_1 = type(return_tuple[1])
 
-        #self.assertEqual(return_tuple_type, actual_type) # checks that method returns a tuple
+        #self.assertEqual(type(return_tuple), type(actual)) # checks that method returns a tuple
         #self.assertEqual(return_tuple[0], actual[0]) # checks that the first element of the tuple is correctly generated
-        #self.assertEqual(actual_type_1, type_elem_1) # checks that the generated uuid is a string
+        #self.assertEqual(type(actual[1]), type(return_tuple[1])) # checks that the generated uuid is a string
 
     #def test_get_first_image_link(self):
         #self.scraper.bypass_cookies()
@@ -98,11 +92,9 @@ class ScraperTestCase(unittest.TestCase):
 
         #self.scraper.driver.get(link_to_test)
         #actual = self.scraper.get_property_metrics()
-        #actual_type = type(actual)
         #return_tuple = ('£6,500,000', 'Chrishall Grange Farm, Heydon, Royston')
-        #return_tuple_type = type(return_tuple)
 
-        #self.assertEqual(return_tuple_type, actual_type) # checks that method returns a tuple
+        #self.assertEqual(type(return_tuple), type(actual)) # checks that method returns a tuple
         #self.assertEqual(return_tuple[0], actual[0]) # checks that the first element of the tuple is correctly generated
         #self.assertEqual(return_tuple[1], actual[1]) # checks that the second element of the tuple is correctly generated
 
@@ -117,6 +109,20 @@ class ScraperTestCase(unittest.TestCase):
         #expected = 'Farm Land'
 
         #self.assertEqual(expected, actual) # checks that the property type is correctly extracted
+
+    def test_get_property_description(self):
+        '''A method that checks that the description is a string'''
+        self.scraper.bypass_cookies()
+        links = self.scraper.get_all_property_links()
+        link_to_test = links[0] # only tests code on first property
+
+        self.scraper.driver.get(link_to_test)
+        description = self.scraper.get_property_description()
+        expected_type = str
+        description_length = 12548
+
+        self.assertEqual(type(description), expected_type) # checks that the description is a string
+        self.assertEqual(len(description), description_length) # checks that the description length is as expected
 
     #def test_extract_the_data_into_a_dictionary(self):
         #'''A method that checks that the dictionary is correctly created'''
