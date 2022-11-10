@@ -109,3 +109,7 @@ get_property_type()
 ```
 - imports and from statements are in consistent alphabetical order;
 - there are no nested loops within the code.
+
+In the second part of this milestone, I created unit tests for my scraper using `unittest`, i.e., one test for each of the public methods of my `Scraper()` class. These are in the file `test_scraper.py` within the `tests` directory. They are run from `__main__.py`. While this was my first time performing unit testing, the process went quite smoothly and was not too time-consuming.
+
+The best takeaway from this milestone was how to make my code a package to make sure all imports function throughout.
