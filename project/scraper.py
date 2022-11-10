@@ -1,6 +1,7 @@
 from pyrsistent import s
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -28,7 +29,16 @@ class Scraper:
             date (str): current date
             hour (str): current time
         '''
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        options = Options()
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-infobars")
+        options.add_argument('--window-size=1920,1080')
+        options.add_argument("--disable-notifications")
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')        
+        self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
         time.sleep(2)
         
