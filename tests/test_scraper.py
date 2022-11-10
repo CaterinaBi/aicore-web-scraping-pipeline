@@ -31,18 +31,18 @@ class ScraperTestCase(unittest.TestCase):
         #self.assertIs(property_list_type, list) # checks that method returns a list
         #self.assertEqual(len(property_list), list_length) # checks that the list length is as expected
 
-    def test_create_global_list(self):
-        '''A method that checks that the list of property created in each loop of the program logic
-        is correctly appended to the global list'''
-        self.scraper.bypass_cookies()
-        property_list = self.scraper.get_all_property_links()
-        global_list = self.scraper.create_global_list()
-        list_length = 24
-        global_list_type = type(global_list)
+    #def test_create_global_list(self):
+        #'''A method that checks that the list of property created in each loop of the program logic
+        #is correctly appended to the global list'''
+        #self.scraper.bypass_cookies()
+        #property_list = self.scraper.get_all_property_links()
+        #global_list = self.scraper.create_global_list()
+        #list_length = 24
+        #global_list_type = type(global_list)
 
-        self.assertIs(global_list_type, list) # checks that method returns a list
-        self.assertEqual(len(global_list), list_length) # checks that the list length is as expected
-        self.assertEqual(global_list, property_list) # checks that property_list is correctly appended
+        #self.assertIs(global_list_type, list) # checks that method returns a list
+        #self.assertEqual(len(global_list), list_length) # checks that the list length is as expected
+        #self.assertEqual(global_list, property_list) # checks that property_list is correctly appended
 
     # def test_scroll_to_bottom(self):
         # '''Tests that the document height page does not change after the first scroll i.e. is already fully loaded.'''
