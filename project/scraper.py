@@ -202,8 +202,6 @@ class Scraper:
             img_data = requests.get(image_url)
             with open(image_path, 'wb') as handler:       
                 handler.write(img_data.content)
-
-        return handler
     
     def save_data_to_json(self, destination_folder='raw_data/right_move_scraper/data'):
         '''A method that converts properties_dict_list into a .json file and stores it into dedicated directories'''
@@ -215,5 +213,3 @@ class Scraper:
         
         with open(folder_path, 'w', encoding='utf-8') as output:
             json.dump(self.properties_dict_list, output, ensure_ascii=False, indent=4)
-
-        return output
