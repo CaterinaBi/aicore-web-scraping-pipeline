@@ -53,18 +53,18 @@ class ScraperTestCase(unittest.TestCase):
         #height_2 = self.scraper.driver.execute_script('return document.body.scrollHeight')
         #self.assertAlmostEqual(height_1/1000, height_2/1000)
 
-    def test_move_to_the_next_page(self):
-        '''A method that tests that the next page button is correctly hit when present'''
-        actual = self.scraper.move_to_the_next_page()
+    #def test_move_to_the_next_page(self):
+        #'''A method that tests that the next page button is correctly hit when present'''
+        #actual = self.scraper.move_to_the_next_page()
 
-        try:
-            expected1 = '---Moved to next page'
-            self.assertEqual(actual, expected1)
-            print('---Accept cookies button correctly used')
-        except:
-            expected2 = '---No cookies to accept'
-            self.assertEqual(actual, expected2)
-            print('---No next page')
+        #try:
+            #expected1 = '---Moved to next page'
+            #self.assertEqual(actual, expected1)
+            #print('---Accept cookies button correctly used')
+        #except:
+            #expected2 = '---No cookies to accept'
+            #self.assertEqual(actual, expected2)
+            #print('---No next page')
 
     def tearDown(self):
         self.scraper.driver.quit()
