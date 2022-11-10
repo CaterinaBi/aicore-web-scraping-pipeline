@@ -26,10 +26,12 @@ class ScraperTestCase(unittest.TestCase):
         '''A method that tests that what what is created is indeed a list, and that the original list of
         properties is correctly sliced to exclude the first property on each page'''
         self.scraper.bypass_cookies()
-        list = self.scraper.get_all_property_links()
+        property_list = self.scraper.get_all_property_links()
         list_length = 24
+        property_list_type = type(property_list)
 
-        self.assertEqual(len(list), list_length)
+        self.assertIs(property_list_type, list) # checks that method returns a list
+        self.assertEqual(len(property_list), list_length) # checks that the list length is as expected
 
     # def test_create_global_list(self):
         # pass
