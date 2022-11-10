@@ -90,21 +90,21 @@ class ScraperTestCase(unittest.TestCase):
 
         #self.assertEqual(expected_link, image_link) # checks that the link to the first property is correctly extracted
 
-    def test_get_property_metrics(self):
-        '''A method that tests that property address and price are correctly extracted'''
-        self.scraper.bypass_cookies()
-        links = self.scraper.get_all_property_links()
-        link_to_test = links[0] # only tests code on first property
+    #def test_get_property_metrics(self):
+        #'''A method that tests that property address and price are correctly extracted'''
+        #self.scraper.bypass_cookies()
+        #links = self.scraper.get_all_property_links()
+        #link_to_test = links[0] # only tests code on first property
 
-        self.scraper.driver.get(link_to_test)
-        actual = self.scraper.get_property_metrics()
-        actual_type = type(actual)
-        return_tuple = ('£6,500,000', 'Chrishall Grange Farm, Heydon, Royston')
-        return_tuple_type = type(return_tuple)
+        #self.scraper.driver.get(link_to_test)
+        #actual = self.scraper.get_property_metrics()
+        #actual_type = type(actual)
+        #return_tuple = ('£6,500,000', 'Chrishall Grange Farm, Heydon, Royston')
+        #return_tuple_type = type(return_tuple)
 
-        self.assertEqual(return_tuple_type, actual_type) # checks that method returns a tuple
-        self.assertEqual(return_tuple[0], actual[0]) # checks that the first element of the tuple is correctly generated
-        self.assertEqual(return_tuple[1], actual[1]) # checks that the second element of the tuple is correctly generated
+        #self.assertEqual(return_tuple_type, actual_type) # checks that method returns a tuple
+        #self.assertEqual(return_tuple[0], actual[0]) # checks that the first element of the tuple is correctly generated
+        #self.assertEqual(return_tuple[1], actual[1]) # checks that the second element of the tuple is correctly generated
 
     # def test_extract_the_data_into_a_dictionary(self):
         # '''A method that checks that the dictionary is correctly created'''
