@@ -44,14 +44,14 @@ class ScraperTestCase(unittest.TestCase):
         #self.assertEqual(len(global_list), list_length) # checks that the list length is as expected
         #self.assertEqual(global_list, property_list) # checks that property_list is correctly appended
 
-    def test_scroll_to_bottom(self):
-        '''A method that tests that the document height page does not change after the first scroll i.e. is already fully loaded.'''
-        self.scraper.bypass_cookies()
-        self.scraper.scroll_to_bottom()
-        height_1 = self.scraper.driver.execute_script('return document.body.scrollHeight')
-        self.scraper.scroll_to_bottom()
-        height_2 = self.scraper.driver.execute_script('return document.body.scrollHeight')
-        self.assertAlmostEqual(height_1/1000, height_2/1000)
+    #def test_scroll_to_bottom(self):
+        #'''A method that tests that the document height page does not change after the first scroll i.e. is already fully loaded.'''
+        #self.scraper.bypass_cookies()
+        #self.scraper.scroll_to_bottom()
+        #height_1 = self.scraper.driver.execute_script('return document.body.scrollHeight')
+        #self.scraper.scroll_to_bottom()
+        #height_2 = self.scraper.driver.execute_script('return document.body.scrollHeight')
+        #self.assertAlmostEqual(height_1/1000, height_2/1000)
 
     def tearDown(self):
         self.scraper.driver.quit()
