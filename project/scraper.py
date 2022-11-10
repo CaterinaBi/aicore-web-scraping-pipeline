@@ -180,7 +180,7 @@ class Scraper:
             self.properties_dict_list.append(self.properties_dictionary)
             time.sleep(2)
 
-        return self.properties_dictionary, self.properties_dict_list
+        return self.properties_dict_list
 
     #######################################################
     ###### download images, store data in .json file ######
