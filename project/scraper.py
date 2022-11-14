@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 import time
 from time import sleep
@@ -38,7 +38,7 @@ class Scraper:
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')        
-        self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
         self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
         time.sleep(2)
         
