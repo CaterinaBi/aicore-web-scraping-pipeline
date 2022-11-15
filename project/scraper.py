@@ -1,9 +1,7 @@
-from pyrsistent import s
+# from pyrsistent import s
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.firefox.options import Options
 
 import time
 from time import sleep
@@ -30,6 +28,7 @@ class Scraper:
             hour (str): current time
         '''
         options = Options()
+        # options.headless = True
         options.add_argument("--disable-gpu")
         options.add_argument("--disable-extensions")
         options.add_argument("--disable-infobars")
@@ -37,9 +36,10 @@ class Scraper:
         options.add_argument("--disable-notifications")
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')        
-        self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
-        self.driver.get(url) # look for all properties for sale within a 10-mile radius from Cambridge, UK
+        options.add_argument('--disable-dev-shm-usage')
+        self.driver = webdriver.Firefox(options=options)
+        self.driver.get(url)
+        
         time.sleep(2)
         
         self.page = 0
