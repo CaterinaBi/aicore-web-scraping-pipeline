@@ -113,3 +113,7 @@ get_property_type()
 In the second part of this milestone, I created unit tests for my scraper using `unittest`, i.e., one test for each of the public methods of my `Scraper()` class. These are in the file `test_scraper.py` within the `tests` directory. They are run from `__main__.py`. While this was my first time performing unit testing, the process went quite smoothly and was not too time-consuming.
 
 The best takeaway from this milestone was how to make my code a package to make sure all imports function throughout.
+
+## Milestone 6
+
+With the basic scraper code in `scraper.py` refactored and passing all tests, milestone 5 required to implement the lines of code needed to run the scraper in headless mode. 
