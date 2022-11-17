@@ -159,3 +159,7 @@ RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckod
     # Move gecko driver in the system path
     && mv geckodriver /usr/local/bin
 ```
+
+Once built, the image was run to make sure it worked properly, and then pushed to the [DockerHub](https://hub.docker.com/) where it now sits proudly.
+
+![Image from my DockerHub repo](images/dockerrepo.png)
