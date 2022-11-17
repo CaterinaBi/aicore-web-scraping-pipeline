@@ -167,3 +167,8 @@ Once built, the image was run to make sure it worked properly, and then pushed t
 ## Milestone 7
 
 This milestone required the creation of two github secrets, `DOCKER_HUB_USERNAME` and `DOCKER_HUB_ACCESS_TOKEN`. These contain, respectively, my personal id from DockerHub and a [Personal Access Token](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token) created on DockerHub.
+
+Subsequently, I could set up a CI/CD (continuous integration and continuous deployment) pipeline using GitHub actions. My GitHub action is triggered on a push to the main branch of my repository, builds the Docker image and pushes it to your Dockerhub account. My workflow is now automatically updated on the Actions of my repo everytime new changes are pushed.
+
+![Image from my workflow](images/actions.png)
+
