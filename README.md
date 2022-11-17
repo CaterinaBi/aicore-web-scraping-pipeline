@@ -116,4 +116,46 @@ The best takeaway from this milestone was how to make my code a package to make 
 
 ## Milestone 6
 
-With the basic scraper code in `scraper.py` refactored and passing all tests, milestone 5 required to implement the lines of code needed to run the scraper in headless mode. 
+With the basic scraper code in `scraper.py` refactored and passing all tests, milestone 5 required to implement the lines of code needed to run the scraper in headless mode. This was done using `Options()` as follows:
+
+```python3
+options = Options()
+        # options.headless = True
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-infobars")
+        options.add_argument('--window-size=1920,1080')
+        options.add_argument("--disable-notifications")
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        self.driver = webdriver.Firefox(options=options)
+        self.driver.get(url)
+```
+
+Note that I had to modify my code to run webdriver with FireFox instead of Chrome, as Macs with M1 chips do not support running chrome driver headless with Docker. 
+
+The following task of this milestone was indeed the creation of a `Dockerfile` to build a scraper image locally. This required instructions to:
+
+- choose a base image (in my case, `python:3.9`);
+- put everything required by my scraper within the container;
+- install all dependencies;
+- run the main Python file.
+
+The installation of FireFox required the following commands, which I copy hoping they'll come in handy to other learners:
+
+```python3
+# Update the system and install firefox
+RUN apt-get update 
+RUN apt -y upgrade 
+RUN apt-get install -y firefox-esr
+
+# get the latest release version of firefox 
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-linux32.tar.gz \
+    # extract the geckodriver
+    && tar -xvzf geckodriver* \
+    # add executable permissions to the driver
+    && chmod +x geckodriver \
+    # Move gecko driver in the system path
+    && mv geckodriver /usr/local/bin
+```
