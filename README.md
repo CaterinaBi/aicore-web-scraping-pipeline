@@ -163,3 +163,7 @@ RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckod
 Once built, the image was run to make sure it worked properly, and then pushed to the [DockerHub](https://hub.docker.com/) where it now sits proudly.
 
 ![Image from my DockerHub repo](images/dockerrepo.png)
+
+## Milestone 7
+
+This milestone required the creation of two github secrets, `DOCKER_HUB_USERNAME` and `DOCKER_HUB_ACCESS_TOKEN`. These contain, respectively, my personal id from DockerHub and a [Personal Access Token](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token) created on DockerHub.
